@@ -133,9 +133,9 @@ class Item:
     def left(self):
         return self.cap - self.calls
 
-    def read(self, cfg):
+    def read(self, cfg, sample=0):
         """Full read with prompt cfg -> (facts item, {n: entry}) or (None, {})."""
-        raw = extract.call(self.item, cfg)
+        raw = extract.call(self.item, cfg, sample=sample)
         self.calls += 1; self.raws.append(raw)
         obj = extract.to_json(raw)
         if obj is None:
@@ -166,11 +166,13 @@ class Item:
 def _reads(st, cfgs, fixes=ALL_FIXES):
     """Full reads with each cfg, skipping failures. Returns [(cfg, repaired facts, raw facts, entries)].
     The same cfg twice is a repeat read of the same prompt (a fresh sample at temperature 1.0)."""
-    out = []
+    out, seen = [], Counter()
     for cfg in cfgs:
         if not st.left():
             break
-        facts, ent = st.read(cfg)
+        key = json.dumps(cfg, sort_keys=True)
+        facts, ent = st.read(cfg, seen[key])          # n-th read of this prompt
+        seen[key] += 1
         if facts is not None and "lines" in facts:
             out.append((cfg, repair.apply(facts, set(fixes))[0], facts, ent))
     return out

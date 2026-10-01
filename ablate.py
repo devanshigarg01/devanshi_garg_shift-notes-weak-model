@@ -15,8 +15,11 @@ The submitted system at each budget (every other system is one of these with one
   3x   three reads with prompts A, B, C -> per-line majority vote -> repair -> solver
   10x  the 3x system, then targeted re-asks of the lines code flags, one call per kind of problem
 
-Every system makes its own live calls (no caching), so systems differ by sampling as well as by
-design; that is why every number is a mean over --runs runs, reported with its spread.
+Within one run, systems share model replies: a read with the same prompt (and the same n-th read
+of it) for the same item is made once and reused, and so is a re-ask with exactly the same text.
+So systems that differ only after the reads are compared on the same reads (paired), and a run
+costs ~1,700 calls instead of ~4,000. Nothing is kept between runs or written to disk: every run
+samples afresh, and every number is a mean over --runs runs with its spread.
 """
 import argparse
 import json
@@ -161,7 +164,7 @@ class Progress:
     def step(self):
         self.n += 1
         S = extract.STATS
-        stats = f"calls={S['calls']} rate-limit retries={S['rate_limited']} failed={S['errors']}"
+        stats = f"calls={S['calls']} shared={S['shared']} rate-limit retries={S['rate_limited']} failed={S['errors']}"
         if self.bar is not None:
             self.bar.set_postfix_str(stats, refresh=False)
             self.bar.update(1)
@@ -267,6 +270,7 @@ def main():
            "systems": {}}
     t0 = time.time()
     for r in range(1, a.runs + 1):
+        extract.SHARED = {}                   # replies shared by the systems of this run only
         for name in names:
             spec = SYSTEMS[name]
             stages = run_system(name, spec, r, items, a, gold, outdir)

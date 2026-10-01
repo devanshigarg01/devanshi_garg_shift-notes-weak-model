@@ -14,6 +14,7 @@ The 1x prompt is PROMPT_A. B and C differ in output format; 3x/10x read with A, 
 import json
 import os
 import re
+import threading
 import time
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -212,8 +213,14 @@ def build_prompt(item, cfg, vocab=None, lines=None):
 # ---------------------------------------------------------------- model call
 
 RETRIES_429 = 5          # rate-limited requests are retried with backoff (see README)
-STATS = Counter()        # calls, rate limits, errors (for progress output)
+STATS = Counter()        # calls, rate limits, errors, shared replies (for progress output)
 _client = None
+
+# Ablation only (./run never sets it): replies shared by all systems within ONE ablation run, so
+# systems that differ only after the reads see the same reads (a paired comparison). Keyed by
+# (item, exact prompt, n-th read of that prompt); reset for every run; never written to disk.
+SHARED = None
+_shared_lock = threading.Lock()
 
 
 def client():
@@ -227,13 +234,8 @@ def client():
     return _client
 
 
-def call(item, cfg, prompt=None):
-    """One model call for this item; returns the reply text, or "ERROR: ..." on failure.
-    `prompt` replaces the extraction prompt (used by the targeted re-asks at 3x/10x).
-    Only a rate limit (HTTP 429) is retried, with exponential backoff."""
-    cfg = item_cfg(item, cfg)
-    vocab, lines = code_header(item) if cfg["code_parse"] else (None, None)
-    messages = [{"role": "user", "content": prompt or build_prompt(item, cfg, vocab, lines)}]
+def _request(item, messages):
+    """The HTTP call. Only a rate limit (HTTP 429) is retried, with exponential backoff."""
     for attempt in range(RETRIES_429 + 1):
         try:
             resp = client().chat.completions.create(
@@ -252,6 +254,27 @@ def call(item, cfg, prompt=None):
                 return err
             STATS["rate_limited"] += 1
             time.sleep(min(60, 4 * 2 ** attempt))
+
+
+def call(item, cfg, prompt=None, sample=0):
+    """One model call for this item; returns the reply text, or "ERROR: ..." on failure.
+    `prompt` replaces the extraction prompt (used by the targeted re-asks at 3x/10x).
+    `sample` = which read of this same prompt it is (0, 1, 2); only matters for SHARED."""
+    cfg = item_cfg(item, cfg)
+    vocab, lines = code_header(item) if cfg["code_parse"] else (None, None)
+    messages = [{"role": "user", "content": prompt or build_prompt(item, cfg, vocab, lines)}]
+    if SHARED is None:
+        return _request(item, messages)
+    key = (item["id"], messages[0]["content"], sample)
+    with _shared_lock:
+        if key in SHARED:
+            STATS["shared"] += 1
+            return SHARED[key]
+    text = _request(item, messages)
+    if not text.startswith("ERROR:"):
+        with _shared_lock:
+            SHARED[key] = text
+    return text
 
 # ---------------------------------------------------------------- reply -> facts
 
