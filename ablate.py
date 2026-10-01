@@ -2,11 +2,11 @@
 """Ablation: one command runs every system the ablation document needs, scores them, and
 writes the document (the main with/without table plus supporting tables).
 
-    python3 ablate.py --runs 3                      # quick suite, 3 runs -> ablation/ablation_quick_suite_3_runs.md, .tex (+ .pdf)
+    python3 ablate.py --runs 3                      # quick suite, 3 runs -> ablation/ablation_quick_suite_3_runs/ (.html, .md, .tex, .pdf)
     python3 ablate.py --suite main --runs 1         # the whole main table
     python3 ablate.py --suite full                  # every system and every supporting table
     python3 ablate.py --runs 1 --limit 10           # quick check on 10 items
-    python3 ablate.py --report ablation/ablation_main_suite_3_runs.json   # rebuild the tables, no model calls
+    python3 ablate.py --report ablation/ablation_quick_suite_3_runs/ablation_quick_suite_3_runs.json   # rebuild the tables, no model calls
     python3 ablate.py --only 1x 3x 10x              # a subset of systems (names in SYSTEMS)
 
 Needs items.json, visible_key.json and score.py from the task package in this folder (or pass
@@ -275,12 +275,12 @@ def main():
     items = json.load(open(a.items))[: a.limit]
     ids = {i["id"] for i in items}
     gold = {k: v for k, v in json.load(open(a.gold)).items() if k in ids}
-    # Final tables go to ablation/<name>.md/.tex/.pdf (+ .json, the scores behind them, for
-    # --report). Intermediate files (facts, answers per system) live in a temp folder.
+    # Final tables go to ablation/<name>/<name>.html/.md/.tex/.pdf (+ .json, the scores behind
+    # them, for --report). Intermediate files (facts, answers per system) live in a temp folder.
     suite = "custom" if a.only else a.suite
     out_name = (f"ablation_{suite}_suite_{a.runs}_run{'s' if a.runs > 1 else ''}"
             + (f"_{len(items)}_items" if a.limit else ""))
-    final_dir = os.path.join(HERE, "ablation")
+    final_dir = os.path.join(HERE, "ablation", out_name)       # one folder per ablation
     os.makedirs(final_dir, exist_ok=True)
     tmp = tempfile.TemporaryDirectory()
     outdir = tmp.name
@@ -289,7 +289,7 @@ def main():
         a.key = os.path.join(outdir, "key_subset.json")
         json.dump(key, open(a.key, "w"))
 
-    print(f"{len(names)} systems x {a.runs} runs x {len(items)} items -> ablation/{out_name}.md", flush=True)
+    print(f"{len(names)} systems x {a.runs} runs x {len(items)} items -> ablation/{out_name}/", flush=True)
 
     res = {"meta": {"items": len(items), "runs": a.runs, "suite": suite, "started": time.strftime("%Y-%m-%d %H:%M"),
                     "command": " ".join(["python3", "ablate.py"] + sys.argv[1:]), "systems": names, "runs_done": 0},

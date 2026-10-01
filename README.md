@@ -8,8 +8,8 @@ answers unique / ambiguous / inconsistent. Details: `docs/devanshi_garg_write_up
 | What | Where |
 |---|---|
 | Write-up (2 pages) | `docs/devanshi_garg_write_up.docx` |
-| Reported ablation results (my runs) | `ablation/ablation_<suite>_suite_<N>_run(s)_orig.md` (each with `.html`, `.csv`, `.tex`, `.pdf`, `.json`). A re-run writes the same names without `_orig`, so it never overwrites these. |
-| Any ablation run | `ablation/ablation_<quick\|main\|full>_suite_<N>_runs.html` (open in a browser), `.csv`, `.md`, `.tex` / `.pdf`, plus `.json` (the scores behind the tables) |
+| Reported ablation results (my runs) | `ablation/ablation_<suite>_suite_<N>_run(s)_orig/` (`.html`, `.md`, `.tex`, `.pdf`, `.json` inside). A re-run writes the same name without `_orig`, so it never overwrites these. |
+| Any ablation run | `ablation/ablation_<quick\|main\|full>_suite_<N>_runs/`: `.html`, `.md`, `.tex` / `.pdf`, and `.json` (the scores behind the tables) |
 
 ## Setup
 
@@ -54,8 +54,8 @@ again: it keeps every finished run and redoes only the one that was cut off (`--
 over). On a laptop, stop it sleeping during long runs: `caffeinate -i <command>` on macOS,
 `systemd-inhibit <command>` on Linux; servers need nothing.
 
-**To reproduce:** run quick (1 run is enough) and compare `ablation/ablation_quick_suite_1_run.md`
-with my `ablation/ablation_quick_suite_3_runs_orig.md`: each number should fall within about the
+**To reproduce:** run quick (1 run is enough) and compare `ablation/ablation_quick_suite_1_run/` with my
+`ablation/ablation_quick_suite_3_runs_orig/`: each number should fall within about the
 `±` spread shown there (one item moves a macro score by 1.7 points).
 
 What each suite runs:
@@ -70,13 +70,14 @@ Every system uses the solver except `1x-direct`, where Granite answers the whole
 
 My results (`_orig` files) come from: quick × 3 runs, main × 1, full × 1.
 
-Output: `ablation/ablation_<suite>_suite_<N>_runs.html` (open in a browser), `.csv` (the main
-table), `.md` and `.tex` (and `.pdf` if `pdflatex` is installed), named by suite and number of runs; a re-run with the same settings overwrites them.
+Output: one folder per ablation, `ablation/ablation_<suite>_suite_<N>_runs/`, holding `.html`,
+`.md`, `.tex` (and `.pdf` if `pdflatex` is installed) and `.json`. **Open the `.html` in a browser
+for the best view if no `.pdf` was generated.** A re-run with the same settings overwrites its folder.
 Within a run, systems share identical reads, so those that differ only after the reads are
 compared on the same model output.
 
 - Quick check: `python3 ablate.py --runs 1 --limit 10`
-- Rebuild tables without calls: `python3 ablate.py --report ablation/<name>.json`
+- Rebuild tables without calls: `python3 ablate.py --report ablation/<name>/<name>.json`
 
 `reference_facts.json` (correct fact per visible line) is used only to count lines read right,
 missed and wrong; never to answer.

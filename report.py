@@ -5,7 +5,6 @@ without calls:  python3 ablate.py --report ablation/<name>.json
 
 A cell whose system has no results prints "--", so a partial run still gives a valid document.
 """
-import csv
 import html
 import os
 import re
@@ -262,8 +261,8 @@ At \textbf{10$\times$} code decides \emph{which} lines need another look and \em
 
 
 def build(res, outdir, name="ablation"):
-    """Writes <outdir>/<name>.md, .html (open in a browser), .csv (the main table) and .tex, and
-    .pdf if pdflatex is installed (LaTeX's aux and log files are removed)."""
+    """Writes <outdir>/<name>.html (open in a browser), .md and .tex, and .pdf if pdflatex is
+    installed (LaTeX's aux and log files are removed)."""
     r = R(res)
     meta = r.meta
     side = side_tables(r)
@@ -302,16 +301,8 @@ def build(res, outdir, name="ablation"):
     open(os.path.join(outdir, name + ".md"), "w").write("\n".join(md) + "\n")
     print("\n".join(md))
     write_html(os.path.join(outdir, name + ".html"), rows, full, calls, side, tex2md(footer.replace("\\texttt", "")))
-    with open(os.path.join(outdir, name + ".csv"), "w", newline="") as fh:
-        w = csv.writer(fh)
-        w.writerow(["component", "1x_with", "1x_without", "3x_with", "3x_without", "10x_with", "10x_without"])
-        w.writerow(["full system"] + [v for x in full for v in (tex2md(x), "")])
-        w.writerow(["calls per item (mean / cap)"] + [v for c in calls for v in (c, "")])
-        for row in rows:
-            if row[0] not in ("group", "sub"):
-                w.writerow([tex2md(row[0]).strip()] + [tex2md(c) for c in row[1:]])
 
-    msg = f"\nwrote {os.path.join(outdir, name)}.md, .html, .csv and .tex"
+    msg = f"\nwrote {os.path.join(outdir, name)}.html, .md and .tex"
     if shutil.which("pdflatex"):
         for _ in range(2):
             p = subprocess.run(["pdflatex", "-interaction=nonstopmode", name + ".tex"], cwd=outdir,
