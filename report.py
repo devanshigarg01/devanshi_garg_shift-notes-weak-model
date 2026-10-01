@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Builds the ablation document from ablate.py's results.json: ablation.tex, ablation.md, and
-ablation.pdf when pdflatex is installed. Called by ablate.py at the end of a run; to rebuild
-without calls:  python3 ablate.py --report ablation/<time>
+"""Builds the ablation document from ablate.py's results: <name>.md, <name>.tex, and
+<name>.pdf when pdflatex is installed. Called by ablate.py at the end of a run; to rebuild
+without calls:  python3 ablate.py --report ablation/<name>.json
 
 A cell whose system has no results prints "--", so a partial run still gives a valid document.
 """
@@ -259,7 +259,9 @@ At \textbf{10$\times$} code decides \emph{which} lines need another look and \em
 """
 
 
-def build(res, outdir):
+def build(res, outdir, name="ablation"):
+    """Writes <outdir>/<name>.md and .tex, and .pdf if pdflatex is installed (LaTeX's aux and
+    log files are removed)."""
     r = R(res)
     meta = r.meta
     side = side_tables(r)
@@ -280,7 +282,7 @@ def build(res, outdir):
 """ + main_tex(r) + HOW_TO_READ + "\n{\\footnotesize " + footer + "}\n\n\\clearpage\n\\section*{Supporting tables}\n"
            + "\n".join(r"\subsection*{" + t + "}\n" + simple_tex(h, rows, spec, cap) for t, h, rows, spec, cap in side)
            + "\n\\end{document}\n")
-    tex_path = os.path.join(outdir, "ablation.tex")
+    tex_path = os.path.join(outdir, name + ".tex")
     open(tex_path, "w").write(tex)
 
     rows, full, calls = main_table(r)
@@ -293,13 +295,17 @@ def build(res, outdir):
     for t, h, rows_, spec, cap in side:
         md += ["", f"## {tex2md(t)}", "", md_table(h, rows_)]
     md += ["", tex2md(footer.replace("\\texttt", ""))]
-    open(os.path.join(outdir, "ablation.md"), "w").write("\n".join(md) + "\n")
+    open(os.path.join(outdir, name + ".md"), "w").write("\n".join(md) + "\n")
     print("\n".join(md))
 
-    msg = f"\nwrote {tex_path} and ablation.md"
+    msg = f"\nwrote {os.path.join(outdir, name)}.md and .tex"
     if shutil.which("pdflatex"):
         for _ in range(2):
-            p = subprocess.run(["pdflatex", "-interaction=nonstopmode", "ablation.tex"], cwd=outdir,
+            p = subprocess.run(["pdflatex", "-interaction=nonstopmode", name + ".tex"], cwd=outdir,
                                capture_output=True, text=True)
-        msg += " and ablation.pdf" if p.returncode == 0 else " (pdflatex failed; see ablation.log)"
+        ok = p.returncode == 0
+        for ext in (".aux", ".out") + ((".log",) if ok else ()):
+            if os.path.exists(os.path.join(outdir, name + ext)):
+                os.remove(os.path.join(outdir, name + ext))
+        msg += " and .pdf" if ok else f" (pdflatex failed; see {name}.log)"
     print(msg)

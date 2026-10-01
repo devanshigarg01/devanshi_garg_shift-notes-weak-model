@@ -2,10 +2,10 @@
 """Ablation: one command runs every system the ablation document needs, scores them, and
 writes the document (the main with/without table plus supporting tables).
 
-    python3 ablate.py                               # main table, 3 runs -> ablation/<time>/ablation.md, .tex (+ .pdf)
+    python3 ablate.py                               # main table, 3 runs -> ablation/ablation_main_suite_3_runs.md, .tex (+ .pdf)
     python3 ablate.py --suite full                  # every system and every supporting table
     python3 ablate.py --runs 1 --limit 10           # quick check on 10 items
-    python3 ablate.py --report ablation/<time>      # rebuild the document from saved results, no model calls
+    python3 ablate.py --report ablation/ablation_main_suite_3_runs.json   # rebuild the tables, no model calls
     python3 ablate.py --only 1x 3x 10x              # a subset of systems (names in SYSTEMS)
 
 Needs items.json, visible_key.json and score.py from the task package in this folder (or pass
@@ -29,6 +29,7 @@ import re
 import statistics
 import subprocess
 import sys
+import tempfile
 import time
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -188,7 +189,7 @@ def run_system(name, spec, r, items, a, gold, outdir):
     cfgs = prompts(spec.get("shots", "few"), spec.get("restate", True), spec.get("roles", True),
                    spec.get("reads", "diff"))
     fixes = frozenset(spec.get("fixes", SYSTEM_FIXES))
-    stem = os.path.join(outdir, "runs", f"{name}_run{r}")
+    stem = os.path.join(outdir, f"{name}_run{r}")
     bar = Progress(len(items), f"{name} run {r}")
     budget = spec["budget"]
 
@@ -246,7 +247,7 @@ def main():
                     help="main: the main table (~1,000 calls/run); full: every system and table (~1,600 calls/run)")
     ap.add_argument("--only", nargs="*", help="run only these systems (see SYSTEMS); overrides --suite")
     ap.add_argument("--limit", type=int, help="first N items only (plumbing checks)")
-    ap.add_argument("--report", help="an ablation folder: rebuild its document from results.json, no calls")
+    ap.add_argument("--report", help="a results .json written by an earlier run: rebuild its tables, no calls")
     ap.add_argument("--workers", type=int, default=8, help="items processed in parallel")
     ap.add_argument("--items", default=os.path.join(HERE, "items.json"))
     ap.add_argument("--key", default=os.path.join(HERE, "visible_key.json"))
@@ -256,7 +257,8 @@ def main():
     a = ap.parse_args()
 
     if a.report:
-        return report.build(json.load(open(os.path.join(a.report, "results.json"))), a.report)
+        base = os.path.splitext(a.report)[0]
+        return report.build(json.load(open(a.report)), os.path.dirname(base) or ".", os.path.basename(base))
 
     problem = extract.check_setup()
     if problem:
@@ -268,16 +270,23 @@ def main():
     items = json.load(open(a.items))[: a.limit]
     ids = {i["id"] for i in items}
     gold = {k: v for k, v in json.load(open(a.gold)).items() if k in ids}
-    outdir = os.path.join(HERE, "ablation", time.strftime("%Y%m%d-%H%M%S"))
-    os.makedirs(os.path.join(outdir, "runs"))
+    # Final tables go to ablation/<name>.md/.tex/.pdf (+ .json, the scores behind them, for
+    # --report). Intermediate files (facts, answers per system) live in a temp folder.
+    suite = "custom" if a.only else a.suite
+    out_name = (f"ablation_{suite}_suite_{a.runs}_run{'s' if a.runs > 1 else ''}"
+            + (f"_{len(items)}_items" if a.limit else ""))
+    final_dir = os.path.join(HERE, "ablation")
+    os.makedirs(final_dir, exist_ok=True)
+    tmp = tempfile.TemporaryDirectory()
+    outdir = tmp.name
     if a.limit:   # score only the items run
         key = {k: v for k, v in json.load(open(a.key)).items() if k in ids}
         a.key = os.path.join(outdir, "key_subset.json")
         json.dump(key, open(a.key, "w"))
 
-    print(f"{len(names)} systems x {a.runs} runs x {len(items)} items | writing {outdir}", flush=True)
+    print(f"{len(names)} systems x {a.runs} runs x {len(items)} items -> ablation/{out_name}.md", flush=True)
 
-    res = {"meta": {"items": len(items), "runs": a.runs, "suite": "custom" if a.only else a.suite, "started": time.strftime("%Y-%m-%d %H:%M"),
+    res = {"meta": {"items": len(items), "runs": a.runs, "suite": suite, "started": time.strftime("%Y-%m-%d %H:%M"),
                     "command": " ".join(["python3", "ablate.py"] + sys.argv[1:])},
            "systems": {}}
     t0 = time.time()
@@ -294,11 +303,12 @@ def main():
             final = stages[spec["budget"]]
             print(f"  run {r}  {name:16s} macro={100 * final['fix'][e['fixname']]['macro']:5.1f}  "
                   f"calls/item={final['calls_mean']:.2f}", flush=True)
-            json.dump(res, open(os.path.join(outdir, "results.json"), "w"), indent=1)
+            json.dump(res, open(os.path.join(final_dir, out_name + ".json"), "w"), indent=1)
     res["meta"]["minutes"] = round((time.time() - t0) / 60, 1)
     res["meta"]["calls"] = dict(extract.STATS)
-    json.dump(res, open(os.path.join(outdir, "results.json"), "w"), indent=1)
-    report.build(res, outdir)
+    json.dump(res, open(os.path.join(final_dir, out_name + ".json"), "w"), indent=1)
+    report.build(res, final_dir, out_name)
+    tmp.cleanup()
 
 
 if __name__ == "__main__":

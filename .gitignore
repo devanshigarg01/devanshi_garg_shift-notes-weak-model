@@ -2,7 +2,6 @@
 .env
 
 # outputs
-ablation/
 answers*.json
 __pycache__/
 *.pyc

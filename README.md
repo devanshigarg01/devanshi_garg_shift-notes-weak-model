@@ -8,8 +8,8 @@ answers unique / ambiguous / inconsistent. Details: `docs/devanshi_garg_write_up
 | What | Where |
 |---|---|
 | Write-up (2 pages) | `docs/devanshi_garg_write_up.docx` |
-| Reported ablation results | `docs/ablation.md` and `docs/ablation.pdf` |
-| New ablation runs | `ablation/<time>/` (one folder per run: `ablation.md`, `.tex`/`.pdf`, `results.json`, per-system outputs in `runs/`) |
+| Reported ablation results | `ablation/ablation_full_suite_3_runs.md` (and `.tex`, `.pdf`) |
+| Any ablation run | `ablation/ablation_<main\|full>_suite_<N>_runs.md` / `.tex` / `.pdf`, plus `.json` (the scores behind the tables) |
 
 ## Setup
 
@@ -43,12 +43,13 @@ The task files (`items.json`, `visible_key.json`, `score.py`) are included. Pick
 | `python3 ablate.py --runs 3 --workers 16` | main table: every component with/without at each budget (prompt components at 1x only) | ~1,000 | ~40 min |
 | `python3 ablate.py --suite full --runs 3 --workers 16` | everything: main table at every budget + supporting tables (prompt techniques, repairs, ways to spend 3 calls, where 10x calls go, declared vs true kind) | ~1,600 | ~75 min |
 
-Output: `ablation/<time>/ablation.md` (and `.tex`/`.pdf`). Within a run, systems share identical
-reads, so those that differ only after the reads are compared on the same model output. Reported
-results (`--suite full`): `docs/ablation.md`.
+Output: `ablation/ablation_<suite>_suite_<N>_runs.md` and `.tex` (and `.pdf` if `pdflatex` is
+installed), named by suite and number of runs; a re-run with the same settings overwrites them.
+Within a run, systems share identical reads, so those that differ only after the reads are
+compared on the same model output.
 
 - Quick check: `python3 ablate.py --runs 1 --limit 10`
-- Rebuild tables without calls: `python3 ablate.py --report ablation/<time>`
+- Rebuild tables without calls: `python3 ablate.py --report ablation/<name>.json`
 
 `reference_facts.json` (correct fact per visible line) is used only to count lines read right,
 missed and wrong; never to answer.
