@@ -2,7 +2,8 @@
 """Ablation: one command runs every system the ablation document needs, scores them, and
 writes the document (the main with/without table plus supporting tables).
 
-    python3 ablate.py                               # 3 runs of everything -> ablation/<time>/ablation.md, .tex (+ .pdf)
+    python3 ablate.py                               # main table, 3 runs -> ablation/<time>/ablation.md, .tex (+ .pdf)
+    python3 ablate.py --suite full                  # every system and every supporting table
     python3 ablate.py --runs 1 --limit 10           # quick check on 10 items
     python3 ablate.py --report ablation/<time>      # rebuild the document from saved results, no model calls
     python3 ablate.py --only 1x 3x 10x              # a subset of systems (names in SYSTEMS)
@@ -97,6 +98,12 @@ def _systems():
 
 
 SYSTEMS = _systems()
+
+# Two suites. "main": only what the brief asks for -- the main with/without table, with the
+# prompt components (examples, restating) measured at 1x only. "full": every system, every table.
+FULL_ONLY = {"1x-oneshot", "1x-plainfields", "3x-zeroshot", "3x-norestate", "3x-followup",
+             "10x-zeroshot", "10x-norestate"}
+SUITES = {"full": list(SYSTEMS), "main": [n for n in SYSTEMS if n not in FULL_ONLY]}
 
 # ------------------------------------------------------------------ scoring
 
@@ -235,7 +242,9 @@ def run_system(name, spec, r, items, a, gold, outdir):
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--runs", type=int, default=3)
-    ap.add_argument("--only", nargs="*", help="run only these systems (see SYSTEMS)")
+    ap.add_argument("--suite", choices=list(SUITES), default="main",
+                    help="main: the main table (~1,000 calls/run); full: every system and table (~1,600 calls/run)")
+    ap.add_argument("--only", nargs="*", help="run only these systems (see SYSTEMS); overrides --suite")
     ap.add_argument("--limit", type=int, help="first N items only (plumbing checks)")
     ap.add_argument("--report", help="an ablation folder: rebuild its document from results.json, no calls")
     ap.add_argument("--workers", type=int, default=8, help="items processed in parallel")
@@ -249,7 +258,7 @@ def main():
     if a.report:
         return report.build(json.load(open(os.path.join(a.report, "results.json"))), a.report)
 
-    names = a.only or list(SYSTEMS)
+    names = a.only or SUITES[a.suite]
     unknown = [n for n in names if n not in SYSTEMS]
     if unknown:
         sys.exit(f"unknown systems {unknown}; choose from {list(SYSTEMS)}")
@@ -265,7 +274,7 @@ def main():
 
     print(f"{len(names)} systems x {a.runs} runs x {len(items)} items | writing {outdir}", flush=True)
 
-    res = {"meta": {"items": len(items), "runs": a.runs, "started": time.strftime("%Y-%m-%d %H:%M"),
+    res = {"meta": {"items": len(items), "runs": a.runs, "suite": "custom" if a.only else a.suite, "started": time.strftime("%Y-%m-%d %H:%M"),
                     "command": " ".join(["python3", "ablate.py"] + sys.argv[1:])},
            "systems": {}}
     t0 = time.time()

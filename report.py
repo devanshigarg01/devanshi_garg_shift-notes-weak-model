@@ -153,7 +153,7 @@ Component & with & without & with & without & with & without \\
 """ + "\n".join(body) + r"""
 \bottomrule
 \end{tabular}
-\caption{The ablation. Macro exact match (\%), mean of """ + str(r.meta.get("runs", "?")) + r""" runs on """ + str(r.meta.get("items", "?")) + r""" items. Each row removes one component from the system at that budget and keeps everything else; ``with'' is always the full system at that budget. --: the component does not exist at that budget. ``2nd and 3rd read'' at 3$\times$ without = the 1$\times$ system.}
+\caption{The ablation. Macro exact match (\%), mean of """ + str(r.meta.get("runs", "?")) + r""" runs on """ + str(r.meta.get("items", "?")) + r""" items. Each row removes one component from the system at that budget and keeps everything else; ``with'' is always the full system at that budget. --: the component does not exist at that budget""" + (r" or was not run in this suite (prompt components at 3$\times$/10$\times$ need \texttt{-{}-suite full})" if r.meta.get("suite") == "main" else "") + r""". ``2nd and 3rd read'' at 3$\times$ without = the 1$\times$ system.}
 \end{table}
 """
 
@@ -263,6 +263,8 @@ def build(res, outdir):
     r = R(res)
     meta = r.meta
     side = side_tables(r)
+    if meta.get("suite") == "main":      # supporting tables whose systems the main suite runs
+        side = [t for t in side if not t[0].startswith(("Prompt techniques", "Ways to spend"))]
     footer = (f"{meta.get('runs', '?')} runs per system, {meta.get('items', '?')} items. "
               f"Command: \\texttt{{{meta.get('command', 'python3 ablate.py').replace('_', chr(92) + '_').replace('--', '-{}-')}}}. "
               f"Started {meta.get('started', '?')}" + (f", took {meta['minutes']} min" if "minutes" in meta else "") + ".")
