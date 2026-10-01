@@ -28,8 +28,7 @@ No caching. Rate-limited calls (429) are retried up to 5 times; nothing else is 
 
 ## Ablation
 
-Put `items.json`, `visible_key.json` and `score.py` from the task package in this folder, then
-pick one:
+The task files (`items.json`, `visible_key.json`, `score.py`) are included. Pick one:
 
 | Command | What you get | Calls per run | Time for 3 runs (`--workers 16`) |
 |---|---|---|---|
