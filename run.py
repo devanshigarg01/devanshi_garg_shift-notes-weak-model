@@ -38,13 +38,14 @@ def main():
     ap.add_argument("items")
     ap.add_argument("--budget", required=True, choices=list(CAPS))
     ap.add_argument("--out", required=True)
-    ap.add_argument("--workers", type=int, default=8, help="items processed in parallel")
+    ap.add_argument("--workers", type=int, default=8, help="max model calls in flight (halves on rate limits, then recovers)")
     a = ap.parse_args()
 
     problem = extract.check_setup()
     if problem:
         sys.exit(f"cannot call the model: {problem}")
 
+    extract.LIMITER = extract.Limiter(a.workers)
     items = json.load(open(a.items))
     answers, calls = {}, {}
     with ThreadPoolExecutor(a.workers) as pool:

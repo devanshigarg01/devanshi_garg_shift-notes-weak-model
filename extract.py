@@ -260,16 +260,54 @@ def client():
     return _client
 
 
+class Limiter:
+    """Adaptive concurrency: at most `limit` calls in flight. A rate limit (429) halves the limit;
+    a streak of successes adds one back, up to `hi`. Changes only how many calls run at once."""
+
+    def __init__(self, hi=8):
+        self.limit, self.hi, self.active, self.streak = hi, hi, 0, 0
+        self.cv = threading.Condition()
+
+    def __enter__(self):
+        with self.cv:
+            while self.active >= self.limit:
+                self.cv.wait()
+            self.active += 1
+
+    def __exit__(self, *exc):
+        with self.cv:
+            self.active -= 1
+            self.cv.notify_all()
+
+    def ok(self):
+        with self.cv:
+            self.streak += 1
+            if self.streak >= 2 * self.limit and self.limit < self.hi:
+                self.limit += 1
+                self.streak = 0
+                self.cv.notify_all()
+
+    def throttled(self):
+        with self.cv:
+            self.limit = max(1, self.limit // 2)
+            self.streak = 0
+
+
+LIMITER = Limiter(8)     # run.py / ablate.py set hi from --workers
+
+
 def _request(item, messages):
     """The HTTP call. Only a rate limit (HTTP 429) is retried, with exponential backoff."""
     for attempt in range(RETRIES_429 + 1):
         try:
-            resp = client().chat.completions.create(
-                model=os.environ.get("MODEL", DEFAULT_MODEL), messages=messages,
-                temperature=1.0, top_p=0.95,
-                extra_body={"reasoning": {"enabled": False}},
-                extra_headers={"X-Item-Id": item["id"]},
-                response_format={"type": "json_object"})
+            with LIMITER:
+                resp = client().chat.completions.create(
+                    model=os.environ.get("MODEL", DEFAULT_MODEL), messages=messages,
+                    temperature=1.0, top_p=0.95,
+                    extra_body={"reasoning": {"enabled": False}},
+                    extra_headers={"X-Item-Id": item["id"]},
+                    response_format={"type": "json_object"})
+            LIMITER.ok()
             STATS["calls"] += 1
             return resp.choices[0].message.content or ""
         except Exception as e:
@@ -280,6 +318,7 @@ def _request(item, messages):
                 ERRORS.append((item["id"], err))
                 return err
             STATS["rate_limited"] += 1
+            LIMITER.throttled()
             time.sleep(min(60, 4 * 2 ** attempt))
 
 

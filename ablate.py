@@ -2,7 +2,8 @@
 """Ablation: one command runs every system the ablation document needs, scores them, and
 writes the document (the main with/without table plus supporting tables).
 
-    python3 ablate.py                               # main table, 3 runs -> ablation/ablation_main_suite_3_runs.md, .tex (+ .pdf)
+    python3 ablate.py --runs 3                      # quick suite, 3 runs -> ablation/ablation_quick_suite_3_runs.md, .tex (+ .pdf)
+    python3 ablate.py --suite main --runs 1         # the whole main table
     python3 ablate.py --suite full                  # every system and every supporting table
     python3 ablate.py --runs 1 --limit 10           # quick check on 10 items
     python3 ablate.py --report ablation/ablation_main_suite_3_runs.json   # rebuild the tables, no model calls
@@ -104,7 +105,8 @@ SYSTEMS = _systems()
 # prompt components (examples, restating) measured at 1x only. "full": every system, every table.
 FULL_ONLY = {"1x-oneshot", "1x-plainfields", "3x-zeroshot", "3x-norestate", "3x-followup",
              "10x-zeroshot", "10x-norestate"}
-SUITES = {"full": list(SYSTEMS), "main": [n for n in SYSTEMS if n not in FULL_ONLY]}
+QUICK = ["1x", "3x", "3x-norepair", "10x"]   # full system per budget + what comes free from those runs
+SUITES = {"quick": QUICK, "main": [n for n in SYSTEMS if n not in FULL_ONLY], "full": list(SYSTEMS)}
 
 # ------------------------------------------------------------------ scoring
 
@@ -243,12 +245,13 @@ def run_system(name, spec, r, items, a, gold, outdir):
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--runs", type=int, default=3)
-    ap.add_argument("--suite", choices=list(SUITES), default="main",
-                    help="main: the main table (~1,000 calls/run); full: every system and table (~1,600 calls/run)")
+    ap.add_argument("--suite", choices=list(SUITES), default="quick",
+                    help="quick: each budget's system + repair/vote/re-ask rows (~270 calls/run); "
+                         "main: the whole main table (~1,000); full: every system and table (~1,500)")
     ap.add_argument("--only", nargs="*", help="run only these systems (see SYSTEMS); overrides --suite")
     ap.add_argument("--limit", type=int, help="first N items only (plumbing checks)")
     ap.add_argument("--report", help="a results .json written by an earlier run: rebuild its tables, no calls")
-    ap.add_argument("--workers", type=int, default=8, help="items processed in parallel")
+    ap.add_argument("--workers", type=int, default=8, help="max model calls in flight (halves on rate limits, then recovers)")
     ap.add_argument("--items", default=os.path.join(HERE, "items.json"))
     ap.add_argument("--key", default=os.path.join(HERE, "visible_key.json"))
     ap.add_argument("--scorer", default=os.path.join(HERE, "score.py"))
@@ -263,6 +266,7 @@ def main():
     problem = extract.check_setup()
     if problem:
         sys.exit(f"cannot call the model: {problem}")
+    extract.LIMITER = extract.Limiter(a.workers)
     names = a.only or SUITES[a.suite]
     unknown = [n for n in names if n not in SYSTEMS]
     if unknown:
