@@ -1,0 +1,138 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=1.8cm]{geometry}
+\usepackage{booktabs,array,xcolor,caption,float,colortbl}
+\usepackage[T1]{fontenc}
+\captionsetup{font=small,labelfont=bf,skip=6pt}
+\setlength{\parindent}{0pt}\setlength{\parskip}{5pt}
+\definecolor{band}{gray}{0.94}
+\begin{document}
+\section*{Ablation}
+\begin{table}[H]
+\centering\small\setlength{\tabcolsep}{4pt}\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{@{}p{8.4cm} cc cc cc@{}}
+\toprule
+ & \multicolumn{2}{c}{\textbf{1$\times$}} & \multicolumn{2}{c}{\textbf{3$\times$}} & \multicolumn{2}{c}{\textbf{10$\times$}} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}
+Component & with & without & with & without & with & without \\
+\midrule
+\rowcolor{band}\textbf{Full system}, macro exact match (\%) & \multicolumn{2}{c}{\textbf{78.3}} & \multicolumn{2}{c}{\textbf{81.7}} & \multicolumn{2}{c}{\textbf{85.0}} \\
+\rowcolor{band}\quad model calls per item (mean / cap) & \multicolumn{2}{c}{1.0 / 1} & \multicolumn{2}{c}{3.0 / 3} & \multicolumn{2}{c}{4.4 / 10} \\
+\rowcolor{band}\quad how a misread line gets fixed & \multicolumn{2}{>{\centering\arraybackslash}p{2.1cm}}{\footnotesize code repairs only} & \multicolumn{2}{>{\centering\arraybackslash}p{2.1cm}}{\footnotesize outvoted by two other reads} & \multicolumn{2}{>{\centering\arraybackslash}p{2.1cm}}{\footnotesize code flags it, model re-reads it} \\
+\multicolumn{7}{@{}l}{\rule{0pt}{11pt}\textbf{One read of the notes}}\\[1pt]
+Code solver \textit{(vs Granite answering directly)} & 78.3 & 0.0 & 81.7 & -- & 85.0 & -- \\
+Worked examples in the prompt & 78.3 & 48.3 & 81.7 & 51.7 & 85.0 & 66.7 \\
+Restate each line in plain words first & 78.3 & 63.3 & 81.7 & 68.3 & 85.0 & 70.0 \\
+\multicolumn{7}{@{}l}{\rule{0pt}{11pt}\textbf{Code repair (no model calls)}}\\[1pt]
+Wrong-name repair & 78.3 & 70.0 & 81.7 & 76.7 & 85.0 & 80.0 \\
+\multicolumn{7}{@{}l}{\rule{0pt}{11pt}\textbf{Extra calls, 3$\times$: read three times and vote}}\\[1pt]
+2nd and 3rd read + per-line vote \textit{(vs one read)} & -- & -- & 81.7 & 78.3 & 85.0 & 86.7 \\
+Reads use different prompts \textit{(vs one prompt $\times$3)} & -- & -- & 81.7 & 80.0 & 85.0 & 85.0 \\
+\multicolumn{7}{@{}l}{\rule{0pt}{11pt}\textbf{Extra calls, 10$\times$: re-ask only the lines code flags}}\\[1pt]
+All targeted re-asks \textit{(vs the 3-read vote alone)} & -- & -- & -- & -- & 85.0 & 81.7 \\
+\multicolumn{7}{@{}l}{\quad\textit{\footnotesize each kind of re-ask removed on its own:}}\\
+\quad name check \textit{\footnotesize -- value not in its line} & -- & -- & -- & -- & 85.0 & 86.7 \\
+\quad missed line \textit{\footnotesize -- ``no fact'' but names people} & -- & -- & -- & -- & 85.0 & 80.0 \\
+\quad order \textit{\footnotesize -- who comes first} & -- & -- & -- & -- & 85.0 & 85.0 \\
+\quad line type \textit{\footnotesize -- kind of statement} & -- & -- & -- & -- & 85.0 & 85.0 \\
+\quad contradiction \textit{\footnotesize -- lines cannot both hold} & -- & -- & -- & -- & 85.0 & 85.0 \\
+\bottomrule
+\end{tabular}
+\caption{The ablation. Macro exact match (\%), mean of 1 runs on 60 items. Each row removes one component from the system at that budget and keeps everything else; ``with'' is always the full system at that budget. --: the component does not exist at that budget. ``2nd and 3rd read'' at 3$\times$ without = the 1$\times$ system.}
+\end{table}
+
+\textbf{How to read it.} Read across a row to see what one component is worth at each budget: the gap between \emph{with} and \emph{without}. Read down the shaded rows for the cost--accuracy curve. The budgets are nested: 3$\times$ is the 1$\times$ system plus two more reads, and 10$\times$ is the 3$\times$ system plus targeted re-asks, so every 1$\times$ component is also inside 3$\times$ and 10$\times$, and every 3$\times$ component inside 10$\times$. With 60 items, one item moves the macro score by 1.7 points; differences smaller than the run-to-run spread ($\pm$) are noise.
+
+\textbf{How the extra calls fix errors, and why 3$\times$ and 10$\times$ do it differently.}
+At \textbf{1$\times$} a misread line can only be caught by code: the wrong-name repair swaps or drops a fact that names someone its line never mentions. Nothing can recover a line the model missed.
+At \textbf{3$\times$} the system never asks the model to correct itself. It reads the whole note three times, each with a differently formatted prompt, and keeps, line by line, the fact at least two reads agree on. This fixes \emph{random} misreads; it cannot fix a mistake all three reads share, which is why the reads use different prompts.
+At \textbf{10$\times$} code decides \emph{which} lines need another look and \emph{why}. After the vote it flags lines that break a check or on which the reads disagreed, groups them by kind of problem, and makes one call per kind, showing the model only those lines, the earlier readings, and what is wrong. A re-read replaces the vote only when code had found a concrete problem and the new answer passes the checks; otherwise it counts as one more vote. So 3$\times$ fixes errors by \emph{agreement}, and 10$\times$ by \emph{targeted correction}.
+
+{\footnotesize 1 runs per system, 60 items. Command: \texttt{python3 ablate.py -{}-suite full -{}-runs 1 -{}-workers 16}. Started 2026-10-01 23:19, took 21.3 min.}
+
+\clearpage
+\section*{Supporting tables}
+\subsection*{Prompt techniques at 1$\times$}
+\begin{table}[H]
+\centering\footnotesize\setlength{\tabcolsep}{3.5pt}\renewcommand{\arraystretch}{1.08}
+\begin{tabular}{@{}p{5.4cm} ccc c c ccc@{}}
+\toprule
+ & Unique & Ambiguous & Inconsistent & \textbf{Macro} & Calls/item & Lines right & Missed & Wrong \\
+\midrule
+$\star$ Few-shot: 12 worked examples, restate each line & 80.0 & 75.0 & 80.0 & 78.3 & 1.0 & 94.5 & 46 & 17 \\
+One-shot: 1 worked example & 50.0 & 45.0 & 65.0 & 53.3 & 1.0 & 91.6 & 67 & 28 \\
+Zero-shot: rules and hints only & 50.0 & 40.0 & 55.0 & 48.3 & 1.0 & 90.3 & 76 & 34 \\
+No plain-words restatement & 65.0 & 60.0 & 65.0 & 63.3 & 1.0 & 94.1 & 55 & 12 \\
+Plain field names (\textit{a/b} instead of \textit{earlier/later}) & 80.0 & 70.0 & 80.0 & 76.7 & 1.0 & 94.7 & 37 & 23 \\
+Granite answers the whole item directly (no solver) & 0.0 & 0.0 & 0.0 & 0.0 & 1.0 & -- & -- & -- \\
+\bottomrule
+\end{tabular}
+\caption{Each row is one 1$\times$ system that differs from the submitted one ($\star$) only in its prompt, all scored with the wrong-name repair. \emph{Lines right}: \% of note lines whose facts match the hand-checked facts exactly; \emph{Missed}: real constraints read as ``no fact''; \emph{Wrong}: a wrong fact, or a fact invented from filler (counts per run, over all items). Worked examples are the main thing to watch for overfitting: they are written in fresh wording, not copied from the visible notes.}
+\end{table}
+
+\subsection*{Code repairs at 1$\times$ (same model output)}
+\begin{table}[H]
+\centering\footnotesize\setlength{\tabcolsep}{3.5pt}\renewcommand{\arraystretch}{1.08}
+\begin{tabular}{@{}p{5.4cm} ccc c c ccc@{}}
+\toprule
+ & Unique & Ambiguous & Inconsistent & \textbf{Macro} & Calls/item & Lines right & Missed & Wrong \\
+\midrule
+None & 70.0 & 75.0 & 65.0 & 70.0 & 1.0 & 93.7 & 45 & 27 \\
+$\star$ Wrong-name repair & 80.0 & 75.0 & 80.0 & 78.3 & 1.0 & 94.5 & 46 & 17 \\
+Station/time swap repair & 70.0 & 75.0 & 65.0 & 70.0 & 1.0 & 93.7 & 45 & 27 \\
+Both & 80.0 & 75.0 & 80.0 & 78.3 & 1.0 & 94.5 & 46 & 17 \\
+\bottomrule
+\end{tabular}
+\caption{All four rows score the \emph{same} 1$\times$ model output, so differences come from the repair alone, not sampling. Wrong-name repair: a fact naming someone its own line never mentions is swapped to the one unused name the line does mention, else dropped. Swap repair: a station written where a time belongs (or the reverse) becomes the matching fact; it fires too rarely to matter and is not in the submitted system.}
+\end{table}
+
+\subsection*{Ways to spend three calls}
+\begin{table}[H]
+\centering\footnotesize\setlength{\tabcolsep}{3.5pt}\renewcommand{\arraystretch}{1.08}
+\begin{tabular}{@{}p{5.4cm} ccc c c ccc@{}}
+\toprule
+ & Unique & Ambiguous & Inconsistent & \textbf{Macro} & Calls/item & Lines right & Missed & Wrong \\
+\midrule
+1 read (the 1$\times$ system) & 80.0 & 75.0 & 80.0 & 78.3 & 1.0 & 94.5 & 46 & 17 \\
+2 reads + 1 re-ask of the lines they disagree on & 90.0 & 80.0 & 85.0 & 85.0 & 2.7 & 96.0 & 32 & 14 \\
+3 reads, same prompt, per-line vote & 85.0 & 70.0 & 85.0 & 80.0 & 3.0 & 95.2 & 38 & 17 \\
+$\star$ 3 reads, 3 different prompts, per-line vote & 85.0 & 75.0 & 85.0 & 81.7 & 3.0 & 95.5 & 41 & 10 \\
+\bottomrule
+\end{tabular}
+\caption{Same prompt and repair throughout; only the use of the extra calls changes. A re-ask lets one fresh sample overwrite a line, so it can turn a right reading wrong; a vote needs two reads to agree. Reads with the same prompt make the same mistakes, so they rarely outvote one another.}
+\end{table}
+
+\subsection*{Where the 10$\times$ calls go}
+\begin{table}[H]
+\centering\footnotesize\setlength{\tabcolsep}{3.5pt}\renewcommand{\arraystretch}{1.08}
+\begin{tabular}{@{}l cccc@{}}
+\toprule
+ & Items asked & Lines re-asked & Macro without it & Gain \\
+\midrule
+3-read vote (the 3$\times$ system) & -- & -- & 81.7 & -- \\
+\quad + name check \textit{\footnotesize (a name, time or station the line does not mention)} & 40\% & 36 & 86.7 & -1.7 \\
+\quad + missed line \textit{\footnotesize (read as no fact, but the restatement names people)} & 45\% & 39 & 80.0 & +5.0 \\
+\quad + order \textit{\footnotesize (reads disagree on who comes first)} & 20\% & 13 & 85.0 & +0.0 \\
+\quad + line type \textit{\footnotesize (reads disagree on the kind of statement)} & 37\% & 38 & 85.0 & +0.0 \\
+\quad + contradiction \textit{\footnotesize (two lines cannot both hold)} & 2\% & 3 & 85.0 & +0.0 \\
+$\star$ Full 10$\times$ & -- & -- & 85.0 & -- \\
+\bottomrule
+\end{tabular}
+\caption{After the 3-read vote, code flags lines and makes one call per kind of problem, only for items that have such lines. \emph{Items asked}: share of items that got this call; \emph{Lines re-asked}: lines sent, per run; \emph{Gain}: full 10$\times$ minus the system without this kind of call.}
+\end{table}
+
+\subsection*{Declared versus true kind}
+\begin{table}[H]
+\centering\footnotesize\setlength{\tabcolsep}{3.5pt}\renewcommand{\arraystretch}{1.08}
+\begin{tabular}{@{}l ccc ccc ccc@{}}
+\toprule
+True kind $\rightarrow$ & 1$\times$ U & A & I & 3$\times$ U & A & I & 10$\times$ U & A & I \\
+\midrule
+Declared unique & 16 & 0 & 1 & 17 & 0 & 1 & 18 & 0 & 1 \\
+Declared ambiguous & 4 & 18 & 1 & 3 & 19 & 1 & 1 & 19 & 0 \\
+Declared inconsistent & 0 & 2 & 18 & 0 & 1 & 18 & 1 & 1 & 19 \\
+\bottomrule
+\end{tabular}
+\caption{Mean item counts over runs for the submitted system at each budget (U = unique, A = ambiguous, I = inconsistent); the diagonal is correct. A missed constraint leaves too many solutions (a unique item declared ambiguous); a misread one usually makes the notes contradict (declared inconsistent).}
+\end{table}
+
+\end{document}

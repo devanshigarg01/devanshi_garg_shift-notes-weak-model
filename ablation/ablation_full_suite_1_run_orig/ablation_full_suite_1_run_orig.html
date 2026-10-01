@@ -1,0 +1,65 @@
+<!doctype html><meta charset=utf-8><title>Ablation</title><style>body{font:15px/1.5 -apple-system,Segoe UI,Helvetica,Arial,sans-serif;max-width:1000px;margin:32px auto;padding:0 16px;color:#1d1d1f}
+h1{font-size:26px}h2{font-size:19px;margin-top:36px}table{border-collapse:collapse;margin:10px 0 6px;font-size:14px}
+th,td{padding:5px 10px;border-bottom:1px solid #e3e3e3;text-align:center}th{background:#f4f5f7}
+td:first-child,th:first-child{text-align:left}tr.group td{background:#fafafa;font-weight:600;text-align:left}
+tr.sub td{font-style:italic;color:#666;text-align:left}tr.full td{background:#eef3fb;font-weight:600}
+.note{color:#555;font-size:13.5px}</style><h1>Ablation</h1>
+<table><tr><th rowspan=2>Component</th><th colspan=2>1x</th><th colspan=2>3x</th><th colspan=2>10x</th></tr>
+<tr><th>with</th><th>without</th><th>with</th><th>without</th><th>with</th><th>without</th></tr>
+<tr class=full><td>Full system, macro exact match (%)</td><td colspan=2>78.3</td><td colspan=2>81.7</td><td colspan=2>85.0</td></tr>
+<tr class=full><td>calls per item (mean / cap)</td><td colspan=2>1.0 / 1</td><td colspan=2>3.0 / 3</td><td colspan=2>4.4 / 10</td></tr>
+<tr class=group><td colspan=7>One read of the notes</td></tr>
+<tr><td>Code solver (vs Granite answering directly)</td><td>78.3</td><td>0.0</td><td>81.7</td><td>--</td><td>85.0</td><td>--</td></tr>
+<tr><td>Worked examples in the prompt</td><td>78.3</td><td>48.3</td><td>81.7</td><td>51.7</td><td>85.0</td><td>66.7</td></tr>
+<tr><td>Restate each line in plain words first</td><td>78.3</td><td>63.3</td><td>81.7</td><td>68.3</td><td>85.0</td><td>70.0</td></tr>
+<tr class=group><td colspan=7>Code repair (no model calls)</td></tr>
+<tr><td>Wrong-name repair</td><td>78.3</td><td>70.0</td><td>81.7</td><td>76.7</td><td>85.0</td><td>80.0</td></tr>
+<tr class=group><td colspan=7>Extra calls, 3x: read three times and vote</td></tr>
+<tr><td>2nd and 3rd read + per-line vote (vs one read)</td><td>--</td><td>--</td><td>81.7</td><td>78.3</td><td>85.0</td><td>86.7</td></tr>
+<tr><td>Reads use different prompts (vs one prompt x3)</td><td>--</td><td>--</td><td>81.7</td><td>80.0</td><td>85.0</td><td>85.0</td></tr>
+<tr class=group><td colspan=7>Extra calls, 10x: re-ask only the lines code flags</td></tr>
+<tr><td>All targeted re-asks (vs the 3-read vote alone)</td><td>--</td><td>--</td><td>--</td><td>--</td><td>85.0</td><td>81.7</td></tr>
+<tr class=sub><td colspan=7>each kind of re-ask removed on its own:</td></tr>
+<tr><td>name check -- value not in its line</td><td>--</td><td>--</td><td>--</td><td>--</td><td>85.0</td><td>86.7</td></tr>
+<tr><td>missed line -- &quot;no fact&quot; but names people</td><td>--</td><td>--</td><td>--</td><td>--</td><td>85.0</td><td>80.0</td></tr>
+<tr><td>order -- who comes first</td><td>--</td><td>--</td><td>--</td><td>--</td><td>85.0</td><td>85.0</td></tr>
+<tr><td>line type -- kind of statement</td><td>--</td><td>--</td><td>--</td><td>--</td><td>85.0</td><td>85.0</td></tr>
+<tr><td>contradiction -- lines cannot both hold</td><td>--</td><td>--</td><td>--</td><td>--</td><td>85.0</td><td>85.0</td></tr>
+</table>
+<p class=note><b>How to read it.</b> Read across a row to see what one component is worth at each budget: the gap between with and without. Read down the shaded rows for the cost--accuracy curve. The budgets are nested: 3x is the 1x system plus two more reads, and 10x is the 3x system plus targeted re-asks, so every 1x component is also inside 3x and 10x, and every 3x component inside 10x. With 60 items, one item moves the macro score by 1.7 points; differences smaller than the run-to-run spread (±) are noise.</p>
+<p class=note><b>How the extra calls fix errors, and why 3x and 10x do it differently.</b> At <b>1x</b> a misread line can only be caught by code: the wrong-name repair swaps or drops a fact that names someone its line never mentions. Nothing can recover a line the model missed. At <b>3x</b> the system never asks the model to correct itself. It reads the whole note three times, each with a differently formatted prompt, and keeps, line by line, the fact at least two reads agree on. This fixes random misreads; it cannot fix a mistake all three reads share, which is why the reads use different prompts. At <b>10x</b> code decides which lines need another look and why. After the vote it flags lines that break a check or on which the reads disagreed, groups them by kind of problem, and makes one call per kind, showing the model only those lines, the earlier readings, and what is wrong. A re-read replaces the vote only when code had found a concrete problem and the new answer passes the checks; otherwise it counts as one more vote. So 3x fixes errors by agreement, and 10x by targeted correction.</p>
+<h2>Prompt techniques at 1x</h2><table><tr><th></th><th>Unique</th><th>Ambiguous</th><th>Inconsistent</th><th><b>Macro</b></th><th>Calls/item</th><th>Lines right</th><th>Missed</th><th>Wrong</th></tr>
+<tr><td>★ Few-shot: 12 worked examples, restate each line</td><td>80.0</td><td>75.0</td><td>80.0</td><td>78.3</td><td>1.0</td><td>94.5</td><td>46</td><td>17</td></tr>
+<tr><td>One-shot: 1 worked example</td><td>50.0</td><td>45.0</td><td>65.0</td><td>53.3</td><td>1.0</td><td>91.6</td><td>67</td><td>28</td></tr>
+<tr><td>Zero-shot: rules and hints only</td><td>50.0</td><td>40.0</td><td>55.0</td><td>48.3</td><td>1.0</td><td>90.3</td><td>76</td><td>34</td></tr>
+<tr><td>No plain-words restatement</td><td>65.0</td><td>60.0</td><td>65.0</td><td>63.3</td><td>1.0</td><td>94.1</td><td>55</td><td>12</td></tr>
+<tr><td>Plain field names (a/b instead of earlier/later)</td><td>80.0</td><td>70.0</td><td>80.0</td><td>76.7</td><td>1.0</td><td>94.7</td><td>37</td><td>23</td></tr>
+<tr><td>Granite answers the whole item directly (no solver)</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>1.0</td><td>--</td><td>--</td><td>--</td></tr>
+</table><p class=note>Each row is one 1x system that differs from the submitted one (★) only in its prompt, all scored with the wrong-name repair. Lines right: % of note lines whose facts match the hand-checked facts exactly; Missed: real constraints read as &quot;no fact&quot;; Wrong: a wrong fact, or a fact invented from filler (counts per run, over all items). Worked examples are the main thing to watch for overfitting: they are written in fresh wording, not copied from the visible notes.</p>
+<h2>Code repairs at 1x (same model output)</h2><table><tr><th></th><th>Unique</th><th>Ambiguous</th><th>Inconsistent</th><th><b>Macro</b></th><th>Calls/item</th><th>Lines right</th><th>Missed</th><th>Wrong</th></tr>
+<tr><td>None</td><td>70.0</td><td>75.0</td><td>65.0</td><td>70.0</td><td>1.0</td><td>93.7</td><td>45</td><td>27</td></tr>
+<tr><td>★ Wrong-name repair</td><td>80.0</td><td>75.0</td><td>80.0</td><td>78.3</td><td>1.0</td><td>94.5</td><td>46</td><td>17</td></tr>
+<tr><td>Station/time swap repair</td><td>70.0</td><td>75.0</td><td>65.0</td><td>70.0</td><td>1.0</td><td>93.7</td><td>45</td><td>27</td></tr>
+<tr><td>Both</td><td>80.0</td><td>75.0</td><td>80.0</td><td>78.3</td><td>1.0</td><td>94.5</td><td>46</td><td>17</td></tr>
+</table><p class=note>All four rows score the same 1x model output, so differences come from the repair alone, not sampling. Wrong-name repair: a fact naming someone its own line never mentions is swapped to the one unused name the line does mention, else dropped. Swap repair: a station written where a time belongs (or the reverse) becomes the matching fact; it fires too rarely to matter and is not in the submitted system.</p>
+<h2>Ways to spend three calls</h2><table><tr><th></th><th>Unique</th><th>Ambiguous</th><th>Inconsistent</th><th><b>Macro</b></th><th>Calls/item</th><th>Lines right</th><th>Missed</th><th>Wrong</th></tr>
+<tr><td>1 read (the 1x system)</td><td>80.0</td><td>75.0</td><td>80.0</td><td>78.3</td><td>1.0</td><td>94.5</td><td>46</td><td>17</td></tr>
+<tr><td>2 reads + 1 re-ask of the lines they disagree on</td><td>90.0</td><td>80.0</td><td>85.0</td><td>85.0</td><td>2.7</td><td>96.0</td><td>32</td><td>14</td></tr>
+<tr><td>3 reads, same prompt, per-line vote</td><td>85.0</td><td>70.0</td><td>85.0</td><td>80.0</td><td>3.0</td><td>95.2</td><td>38</td><td>17</td></tr>
+<tr><td>★ 3 reads, 3 different prompts, per-line vote</td><td>85.0</td><td>75.0</td><td>85.0</td><td>81.7</td><td>3.0</td><td>95.5</td><td>41</td><td>10</td></tr>
+</table><p class=note>Same prompt and repair throughout; only the use of the extra calls changes. A re-ask lets one fresh sample overwrite a line, so it can turn a right reading wrong; a vote needs two reads to agree. Reads with the same prompt make the same mistakes, so they rarely outvote one another.</p>
+<h2>Where the 10x calls go</h2><table><tr><th></th><th>Items asked</th><th>Lines re-asked</th><th>Macro without it</th><th>Gain</th></tr>
+<tr><td>3-read vote (the 3x system)</td><td>--</td><td>--</td><td>81.7</td><td>--</td></tr>
+<tr><td>+ name check (a name, time or station the line does not mention)</td><td>40%</td><td>36</td><td>86.7</td><td>-1.7</td></tr>
+<tr><td>+ missed line (read as no fact, but the restatement names people)</td><td>45%</td><td>39</td><td>80.0</td><td>+5.0</td></tr>
+<tr><td>+ order (reads disagree on who comes first)</td><td>20%</td><td>13</td><td>85.0</td><td>+0.0</td></tr>
+<tr><td>+ line type (reads disagree on the kind of statement)</td><td>37%</td><td>38</td><td>85.0</td><td>+0.0</td></tr>
+<tr><td>+ contradiction (two lines cannot both hold)</td><td>2%</td><td>3</td><td>85.0</td><td>+0.0</td></tr>
+<tr><td>★ Full 10x</td><td>--</td><td>--</td><td>85.0</td><td>--</td></tr>
+</table><p class=note>After the 3-read vote, code flags lines and makes one call per kind of problem, only for items that have such lines. Items asked: share of items that got this call; Lines re-asked: lines sent, per run; Gain: full 10x minus the system without this kind of call.</p>
+<h2>Declared versus true kind</h2><table><tr><th>True kind →</th><th>1x U</th><th>A</th><th>I</th><th>3x U</th><th>A</th><th>I</th><th>10x U</th><th>A</th><th>I</th></tr>
+<tr><td>Declared unique</td><td>16</td><td>0</td><td>1</td><td>17</td><td>0</td><td>1</td><td>18</td><td>0</td><td>1</td></tr>
+<tr><td>Declared ambiguous</td><td>4</td><td>18</td><td>1</td><td>3</td><td>19</td><td>1</td><td>1</td><td>19</td><td>0</td></tr>
+<tr><td>Declared inconsistent</td><td>0</td><td>2</td><td>18</td><td>0</td><td>1</td><td>18</td><td>1</td><td>1</td><td>19</td></tr>
+</table><p class=note>Mean item counts over runs for the submitted system at each budget (U = unique, A = ambiguous, I = inconsistent); the diagonal is correct. A missed constraint leaves too many solutions (a unique item declared ambiguous); a misread one usually makes the notes contradict (declared inconsistent).</p>
+<p class=note>1 runs per system, 60 items. Command: python3 ablate.py --suite full --runs 1 --workers 16. Started 2026-10-01 23:19, took 21.3 min.</p>

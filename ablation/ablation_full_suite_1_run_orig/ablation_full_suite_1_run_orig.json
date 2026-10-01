@@ -1,0 +1,5348 @@
+{
+ "meta": {
+  "items": 60,
+  "runs": 1,
+  "suite": "full",
+  "started": "2026-10-01 23:19",
+  "command": "python3 ablate.py --suite full --runs 1 --workers 16",
+  "systems": [
+   "1x",
+   "1x-oneshot",
+   "1x-zeroshot",
+   "1x-norestate",
+   "1x-plainfields",
+   "1x-direct",
+   "3x",
+   "3x-zeroshot",
+   "3x-norestate",
+   "3x-norepair",
+   "3x-sameprompt",
+   "3x-followup",
+   "10x",
+   "10x-zeroshot",
+   "10x-norestate",
+   "10x-norepair",
+   "10x-sameprompt",
+   "10x-oneread",
+   "10x-nonames",
+   "10x-nomissed",
+   "10x-noorder",
+   "10x-nokind",
+   "10x-nocontradiction"
+  ],
+  "runs_done": 1,
+  "minutes": 21.3,
+  "calls": {
+   "calls": 1132,
+   "shared": 2960
+  }
+ },
+ "systems": {
+  "1x": {
+   "budget": "1x",
+   "fixname": "F2",
+   "stages": {
+    "1x": [
+     {
+      "fix": {
+       "no fixes": {
+        "macro": 0.7,
+        "per_case": {
+         "unique": 0.7,
+         "ambiguous": 0.75,
+         "inconsistent": 0.65
+        },
+        "confusion": {
+         "unique": {
+          "unique": 14,
+          "ambiguous": 4,
+          "inconsistent": 2,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 18,
+          "inconsistent": 2,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 2,
+          "ambiguous": 1,
+          "inconsistent": 17,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1065,
+         "missed": 45,
+         "wrong": 20,
+         "invented": 7
+        }
+       },
+       "F1": {
+        "macro": 0.7,
+        "per_case": {
+         "unique": 0.7,
+         "ambiguous": 0.75,
+         "inconsistent": 0.65
+        },
+        "confusion": {
+         "unique": {
+          "unique": 14,
+          "ambiguous": 4,
+          "inconsistent": 2,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 18,
+          "inconsistent": 2,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 2,
+          "ambiguous": 1,
+          "inconsistent": 17,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1065,
+         "missed": 45,
+         "wrong": 20,
+         "invented": 7
+        }
+       },
+       "F2": {
+        "macro": 0.7833,
+        "per_case": {
+         "unique": 0.8,
+         "ambiguous": 0.75,
+         "inconsistent": 0.8
+        },
+        "confusion": {
+         "unique": {
+          "unique": 16,
+          "ambiguous": 4,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 18,
+          "inconsistent": 2,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 1,
+          "inconsistent": 18,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1074,
+         "missed": 46,
+         "wrong": 10,
+         "invented": 7
+        }
+       },
+       "all": {
+        "macro": 0.7833,
+        "per_case": {
+         "unique": 0.8,
+         "ambiguous": 0.75,
+         "inconsistent": 0.8
+        },
+        "confusion": {
+         "unique": {
+          "unique": 16,
+          "ambiguous": 4,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 18,
+          "inconsistent": 2,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 1,
+          "inconsistent": 18,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1074,
+         "missed": 46,
+         "wrong": 10,
+         "invented": 7
+        }
+       }
+      },
+      "calls_mean": 1.0,
+      "unparseable": 0,
+      "api_errors": 0
+     }
+    ]
+   }
+  },
+  "1x-oneshot": {
+   "budget": "1x",
+   "fixname": "F2",
+   "stages": {
+    "1x": [
+     {
+      "fix": {
+       "no fixes": {
+        "macro": 0.4833,
+        "per_case": {
+         "unique": 0.45,
+         "ambiguous": 0.45,
+         "inconsistent": 0.55
+        },
+        "confusion": {
+         "unique": {
+          "unique": 10,
+          "ambiguous": 9,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 3,
+          "inconsistent": 16,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1034,
+         "missed": 65,
+         "wrong": 35,
+         "invented": 3
+        }
+       },
+       "F1": {
+        "macro": 0.5,
+        "per_case": {
+         "unique": 0.45,
+         "ambiguous": 0.45,
+         "inconsistent": 0.6
+        },
+        "confusion": {
+         "unique": {
+          "unique": 10,
+          "ambiguous": 9,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 2,
+          "inconsistent": 17,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1038,
+         "missed": 65,
+         "wrong": 31,
+         "invented": 3
+        }
+       },
+       "F2": {
+        "macro": 0.5333,
+        "per_case": {
+         "unique": 0.5,
+         "ambiguous": 0.45,
+         "inconsistent": 0.65
+        },
+        "confusion": {
+         "unique": {
+          "unique": 11,
+          "ambiguous": 8,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 20,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 3,
+          "inconsistent": 16,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1042,
+         "missed": 67,
+         "invented": 3,
+         "wrong": 25
+        }
+       },
+       "all": {
+        "macro": 0.55,
+        "per_case": {
+         "unique": 0.5,
+         "ambiguous": 0.45,
+         "inconsistent": 0.7
+        },
+        "confusion": {
+         "unique": {
+          "unique": 11,
+          "ambiguous": 8,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 20,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 2,
+          "inconsistent": 17,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1046,
+         "missed": 67,
+         "invented": 3,
+         "wrong": 21
+        }
+       }
+      },
+      "calls_mean": 1.0,
+      "unparseable": 0,
+      "api_errors": 0
+     }
+    ]
+   }
+  },
+  "1x-zeroshot": {
+   "budget": "1x",
+   "fixname": "F2",
+   "stages": {
+    "1x": [
+     {
+      "fix": {
+       "no fixes": {
+        "macro": 0.45,
+        "per_case": {
+         "unique": 0.45,
+         "ambiguous": 0.4,
+         "inconsistent": 0.5
+        },
+        "confusion": {
+         "unique": {
+          "unique": 11,
+          "ambiguous": 9,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 20,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 2,
+          "ambiguous": 5,
+          "inconsistent": 13,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1024,
+         "missed": 76,
+         "wrong": 35,
+         "invented": 2
+        }
+       },
+       "F1": {
+        "macro": 0.4667,
+        "per_case": {
+         "unique": 0.45,
+         "ambiguous": 0.4,
+         "inconsistent": 0.55
+        },
+        "confusion": {
+         "unique": {
+          "unique": 11,
+          "ambiguous": 9,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 20,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 2,
+          "ambiguous": 4,
+          "inconsistent": 14,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1029,
+         "missed": 76,
+         "wrong": 30,
+         "invented": 2
+        }
+       },
+       "F2": {
+        "macro": 0.4833,
+        "per_case": {
+         "unique": 0.5,
+         "ambiguous": 0.4,
+         "inconsistent": 0.55
+        },
+        "confusion": {
+         "unique": {
+          "unique": 12,
+          "ambiguous": 8,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 20,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 2,
+          "ambiguous": 5,
+          "inconsistent": 13,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1027,
+         "missed": 76,
+         "wrong": 32,
+         "invented": 2
+        }
+       },
+       "all": {
+        "macro": 0.5,
+        "per_case": {
+         "unique": 0.5,
+         "ambiguous": 0.4,
+         "inconsistent": 0.6
+        },
+        "confusion": {
+         "unique": {
+          "unique": 12,
+          "ambiguous": 8,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 20,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 2,
+          "ambiguous": 4,
+          "inconsistent": 14,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1032,
+         "missed": 76,
+         "wrong": 27,
+         "invented": 2
+        }
+       }
+      },
+      "calls_mean": 1.0,
+      "unparseable": 0,
+      "api_errors": 0
+     }
+    ]
+   }
+  },
+  "1x-norestate": {
+   "budget": "1x",
+   "fixname": "F2",
+   "stages": {
+    "1x": [
+     {
+      "fix": {
+       "no fixes": {
+        "macro": 0.6,
+        "per_case": {
+         "unique": 0.6,
+         "ambiguous": 0.55,
+         "inconsistent": 0.65
+        },
+        "confusion": {
+         "unique": {
+          "unique": 12,
+          "ambiguous": 3,
+          "inconsistent": 5,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 3,
+          "ambiguous": 2,
+          "inconsistent": 15,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1065,
+         "wrong": 24,
+         "missed": 48
+        }
+       },
+       "F1": {
+        "macro": 0.6167,
+        "per_case": {
+         "unique": 0.6,
+         "ambiguous": 0.55,
+         "inconsistent": 0.7
+        },
+        "confusion": {
+         "unique": {
+          "unique": 12,
+          "ambiguous": 3,
+          "inconsistent": 5,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 2,
+          "ambiguous": 2,
+          "inconsistent": 16,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1066,
+         "wrong": 23,
+         "missed": 48
+        }
+       },
+       "F2": {
+        "macro": 0.6333,
+        "per_case": {
+         "unique": 0.65,
+         "ambiguous": 0.6,
+         "inconsistent": 0.65
+        },
+        "confusion": {
+         "unique": {
+          "unique": 13,
+          "ambiguous": 3,
+          "inconsistent": 4,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 20,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 2,
+          "ambiguous": 2,
+          "inconsistent": 16,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1070,
+         "wrong": 12,
+         "missed": 55
+        }
+       },
+       "all": {
+        "macro": 0.65,
+        "per_case": {
+         "unique": 0.65,
+         "ambiguous": 0.6,
+         "inconsistent": 0.7
+        },
+        "confusion": {
+         "unique": {
+          "unique": 13,
+          "ambiguous": 3,
+          "inconsistent": 4,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 20,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 2,
+          "inconsistent": 17,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1071,
+         "wrong": 11,
+         "missed": 55
+        }
+       }
+      },
+      "calls_mean": 1.0,
+      "unparseable": 0,
+      "api_errors": 0
+     }
+    ]
+   }
+  },
+  "1x-plainfields": {
+   "budget": "1x",
+   "fixname": "F2",
+   "stages": {
+    "1x": [
+     {
+      "fix": {
+       "no fixes": {
+        "macro": 0.7167,
+        "per_case": {
+         "unique": 0.75,
+         "ambiguous": 0.7,
+         "inconsistent": 0.7
+        },
+        "confusion": {
+         "unique": {
+          "unique": 15,
+          "ambiguous": 2,
+          "inconsistent": 3,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 2,
+          "ambiguous": 1,
+          "inconsistent": 17,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1072,
+         "wrong": 26,
+         "missed": 33,
+         "invented": 6
+        }
+       },
+       "F1": {
+        "macro": 0.7333,
+        "per_case": {
+         "unique": 0.75,
+         "ambiguous": 0.7,
+         "inconsistent": 0.75
+        },
+        "confusion": {
+         "unique": {
+          "unique": 15,
+          "ambiguous": 2,
+          "inconsistent": 3,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 1,
+          "inconsistent": 18,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1075,
+         "missed": 33,
+         "wrong": 23,
+         "invented": 6
+        }
+       },
+       "F2": {
+        "macro": 0.7667,
+        "per_case": {
+         "unique": 0.8,
+         "ambiguous": 0.7,
+         "inconsistent": 0.8
+        },
+        "confusion": {
+         "unique": {
+          "unique": 16,
+          "ambiguous": 3,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 2,
+          "ambiguous": 1,
+          "inconsistent": 17,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1077,
+         "wrong": 17,
+         "missed": 37,
+         "invented": 6
+        }
+       },
+       "all": {
+        "macro": 0.7833,
+        "per_case": {
+         "unique": 0.8,
+         "ambiguous": 0.7,
+         "inconsistent": 0.85
+        },
+        "confusion": {
+         "unique": {
+          "unique": 16,
+          "ambiguous": 3,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 1,
+          "inconsistent": 18,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1080,
+         "missed": 37,
+         "invented": 6,
+         "wrong": 14
+        }
+       }
+      },
+      "calls_mean": 1.0,
+      "unparseable": 0,
+      "api_errors": 0
+     }
+    ]
+   }
+  },
+  "1x-direct": {
+   "budget": "1x",
+   "fixname": "F2",
+   "stages": {
+    "1x": [
+     {
+      "fix": {
+       "no fixes": {
+        "macro": 0.0,
+        "per_case": {
+         "unique": 0.0,
+         "ambiguous": 0.0,
+         "inconsistent": 0.0
+        },
+        "confusion": {
+         "unique": {
+          "unique": 15,
+          "ambiguous": 0,
+          "inconsistent": 5,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 10,
+          "ambiguous": 2,
+          "inconsistent": 8,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 11,
+          "ambiguous": 1,
+          "inconsistent": 8,
+          "unparsed": 0
+         }
+        }
+       },
+       "F1": {
+        "macro": 0.0,
+        "per_case": {
+         "unique": 0.0,
+         "ambiguous": 0.0,
+         "inconsistent": 0.0
+        },
+        "confusion": {
+         "unique": {
+          "unique": 15,
+          "ambiguous": 0,
+          "inconsistent": 5,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 10,
+          "ambiguous": 2,
+          "inconsistent": 8,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 11,
+          "ambiguous": 1,
+          "inconsistent": 8,
+          "unparsed": 0
+         }
+        }
+       },
+       "F2": {
+        "macro": 0.0,
+        "per_case": {
+         "unique": 0.0,
+         "ambiguous": 0.0,
+         "inconsistent": 0.0
+        },
+        "confusion": {
+         "unique": {
+          "unique": 15,
+          "ambiguous": 0,
+          "inconsistent": 5,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 10,
+          "ambiguous": 2,
+          "inconsistent": 8,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 11,
+          "ambiguous": 1,
+          "inconsistent": 8,
+          "unparsed": 0
+         }
+        }
+       },
+       "all": {
+        "macro": 0.0,
+        "per_case": {
+         "unique": 0.0,
+         "ambiguous": 0.0,
+         "inconsistent": 0.0
+        },
+        "confusion": {
+         "unique": {
+          "unique": 15,
+          "ambiguous": 0,
+          "inconsistent": 5,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 10,
+          "ambiguous": 2,
+          "inconsistent": 8,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 11,
+          "ambiguous": 1,
+          "inconsistent": 8,
+          "unparsed": 0
+         }
+        }
+       }
+      },
+      "calls_mean": 1.0
+     }
+    ]
+   }
+  },
+  "3x": {
+   "budget": "3x",
+   "fixname": "F2",
+   "stages": {
+    "3x": [
+     {
+      "fix": {
+       "no fixes": {
+        "macro": 0.8167,
+        "per_case": {
+         "unique": 0.85,
+         "ambiguous": 0.75,
+         "inconsistent": 0.85
+        },
+        "confusion": {
+         "unique": {
+          "unique": 17,
+          "ambiguous": 3,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 1,
+          "inconsistent": 18,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1086,
+         "missed": 41,
+         "wrong": 8,
+         "invented": 2
+        }
+       },
+       "F1": {
+        "macro": 0.8167,
+        "per_case": {
+         "unique": 0.85,
+         "ambiguous": 0.75,
+         "inconsistent": 0.85
+        },
+        "confusion": {
+         "unique": {
+          "unique": 17,
+          "ambiguous": 3,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 1,
+          "inconsistent": 18,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1086,
+         "missed": 41,
+         "wrong": 8,
+         "invented": 2
+        }
+       },
+       "F2": {
+        "macro": 0.8167,
+        "per_case": {
+         "unique": 0.85,
+         "ambiguous": 0.75,
+         "inconsistent": 0.85
+        },
+        "confusion": {
+         "unique": {
+          "unique": 17,
+          "ambiguous": 3,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 1,
+          "inconsistent": 18,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1086,
+         "missed": 41,
+         "wrong": 8,
+         "invented": 2
+        }
+       },
+       "all": {
+        "macro": 0.8167,
+        "per_case": {
+         "unique": 0.85,
+         "ambiguous": 0.75,
+         "inconsistent": 0.85
+        },
+        "confusion": {
+         "unique": {
+          "unique": 17,
+          "ambiguous": 3,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 1,
+          "inconsistent": 18,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1086,
+         "missed": 41,
+         "wrong": 8,
+         "invented": 2
+        }
+       }
+      },
+      "calls_mean": 3,
+      "calls_max": 3,
+      "reask_calls": {},
+      "reask_lines": {}
+     }
+    ]
+   }
+  },
+  "3x-zeroshot": {
+   "budget": "3x",
+   "fixname": "F2",
+   "stages": {
+    "3x": [
+     {
+      "fix": {
+       "no fixes": {
+        "macro": 0.5167,
+        "per_case": {
+         "unique": 0.5,
+         "ambiguous": 0.45,
+         "inconsistent": 0.6
+        },
+        "confusion": {
+         "unique": {
+          "unique": 13,
+          "ambiguous": 7,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 20,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 5,
+          "ambiguous": 2,
+          "inconsistent": 13,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1033,
+         "missed": 80,
+         "wrong": 23,
+         "invented": 1
+        }
+       },
+       "F1": {
+        "macro": 0.5333,
+        "per_case": {
+         "unique": 0.5,
+         "ambiguous": 0.45,
+         "inconsistent": 0.65
+        },
+        "confusion": {
+         "unique": {
+          "unique": 13,
+          "ambiguous": 7,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 20,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 4,
+          "ambiguous": 2,
+          "inconsistent": 14,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1036,
+         "missed": 80,
+         "wrong": 20,
+         "invented": 1
+        }
+       },
+       "F2": {
+        "macro": 0.5167,
+        "per_case": {
+         "unique": 0.5,
+         "ambiguous": 0.45,
+         "inconsistent": 0.6
+        },
+        "confusion": {
+         "unique": {
+          "unique": 13,
+          "ambiguous": 7,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 20,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 5,
+          "ambiguous": 2,
+          "inconsistent": 13,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1033,
+         "missed": 80,
+         "wrong": 23,
+         "invented": 1
+        }
+       },
+       "all": {
+        "macro": 0.5333,
+        "per_case": {
+         "unique": 0.5,
+         "ambiguous": 0.45,
+         "inconsistent": 0.65
+        },
+        "confusion": {
+         "unique": {
+          "unique": 13,
+          "ambiguous": 7,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 20,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 4,
+          "ambiguous": 2,
+          "inconsistent": 14,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1036,
+         "missed": 80,
+         "wrong": 20,
+         "invented": 1
+        }
+       }
+      },
+      "calls_mean": 3,
+      "calls_max": 3,
+      "reask_calls": {},
+      "reask_lines": {}
+     }
+    ]
+   }
+  },
+  "3x-norestate": {
+   "budget": "3x",
+   "fixname": "F2",
+   "stages": {
+    "3x": [
+     {
+      "fix": {
+       "no fixes": {
+        "macro": 0.6833,
+        "per_case": {
+         "unique": 0.7,
+         "ambiguous": 0.6,
+         "inconsistent": 0.75
+        },
+        "confusion": {
+         "unique": {
+          "unique": 14,
+          "ambiguous": 3,
+          "inconsistent": 3,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 20,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 2,
+          "inconsistent": 17,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1075,
+         "missed": 53,
+         "wrong": 9
+        }
+       },
+       "F1": {
+        "macro": 0.6833,
+        "per_case": {
+         "unique": 0.7,
+         "ambiguous": 0.6,
+         "inconsistent": 0.75
+        },
+        "confusion": {
+         "unique": {
+          "unique": 14,
+          "ambiguous": 3,
+          "inconsistent": 3,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 20,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 2,
+          "inconsistent": 17,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1075,
+         "missed": 53,
+         "wrong": 9
+        }
+       },
+       "F2": {
+        "macro": 0.6833,
+        "per_case": {
+         "unique": 0.7,
+         "ambiguous": 0.6,
+         "inconsistent": 0.75
+        },
+        "confusion": {
+         "unique": {
+          "unique": 14,
+          "ambiguous": 3,
+          "inconsistent": 3,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 20,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 2,
+          "inconsistent": 17,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1075,
+         "missed": 53,
+         "wrong": 9
+        }
+       },
+       "all": {
+        "macro": 0.6833,
+        "per_case": {
+         "unique": 0.7,
+         "ambiguous": 0.6,
+         "inconsistent": 0.75
+        },
+        "confusion": {
+         "unique": {
+          "unique": 14,
+          "ambiguous": 3,
+          "inconsistent": 3,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 20,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 2,
+          "inconsistent": 17,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1075,
+         "missed": 53,
+         "wrong": 9
+        }
+       }
+      },
+      "calls_mean": 3,
+      "calls_max": 3,
+      "reask_calls": {},
+      "reask_lines": {}
+     }
+    ]
+   }
+  },
+  "3x-norepair": {
+   "budget": "3x",
+   "fixname": "no fixes",
+   "stages": {
+    "3x": [
+     {
+      "fix": {
+       "no fixes": {
+        "macro": 0.7667,
+        "per_case": {
+         "unique": 0.8,
+         "ambiguous": 0.75,
+         "inconsistent": 0.75
+        },
+        "confusion": {
+         "unique": {
+          "unique": 16,
+          "ambiguous": 3,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 1,
+          "inconsistent": 18,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1085,
+         "missed": 39,
+         "wrong": 11,
+         "invented": 2
+        }
+       },
+       "F1": {
+        "macro": 0.7667,
+        "per_case": {
+         "unique": 0.8,
+         "ambiguous": 0.75,
+         "inconsistent": 0.75
+        },
+        "confusion": {
+         "unique": {
+          "unique": 16,
+          "ambiguous": 3,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 1,
+          "inconsistent": 18,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1085,
+         "missed": 39,
+         "wrong": 11,
+         "invented": 2
+        }
+       },
+       "F2": {
+        "macro": 0.8167,
+        "per_case": {
+         "unique": 0.85,
+         "ambiguous": 0.75,
+         "inconsistent": 0.85
+        },
+        "confusion": {
+         "unique": {
+          "unique": 17,
+          "ambiguous": 3,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 1,
+          "inconsistent": 18,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1087,
+         "missed": 40,
+         "wrong": 8,
+         "invented": 2
+        }
+       },
+       "all": {
+        "macro": 0.8167,
+        "per_case": {
+         "unique": 0.85,
+         "ambiguous": 0.75,
+         "inconsistent": 0.85
+        },
+        "confusion": {
+         "unique": {
+          "unique": 17,
+          "ambiguous": 3,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 1,
+          "inconsistent": 18,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1087,
+         "missed": 40,
+         "wrong": 8,
+         "invented": 2
+        }
+       }
+      },
+      "calls_mean": 3,
+      "calls_max": 3,
+      "reask_calls": {},
+      "reask_lines": {}
+     }
+    ]
+   }
+  },
+  "3x-sameprompt": {
+   "budget": "3x",
+   "fixname": "F2",
+   "stages": {
+    "3x": [
+     {
+      "fix": {
+       "no fixes": {
+        "macro": 0.8,
+        "per_case": {
+         "unique": 0.85,
+         "ambiguous": 0.7,
+         "inconsistent": 0.85
+        },
+        "confusion": {
+         "unique": {
+          "unique": 17,
+          "ambiguous": 2,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 18,
+          "inconsistent": 2,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 0,
+          "inconsistent": 19,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1082,
+         "missed": 38,
+         "invented": 7,
+         "wrong": 10
+        }
+       },
+       "F1": {
+        "macro": 0.8,
+        "per_case": {
+         "unique": 0.85,
+         "ambiguous": 0.7,
+         "inconsistent": 0.85
+        },
+        "confusion": {
+         "unique": {
+          "unique": 17,
+          "ambiguous": 2,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 18,
+          "inconsistent": 2,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 0,
+          "inconsistent": 19,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1082,
+         "missed": 38,
+         "invented": 7,
+         "wrong": 10
+        }
+       },
+       "F2": {
+        "macro": 0.8,
+        "per_case": {
+         "unique": 0.85,
+         "ambiguous": 0.7,
+         "inconsistent": 0.85
+        },
+        "confusion": {
+         "unique": {
+          "unique": 17,
+          "ambiguous": 2,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 18,
+          "inconsistent": 2,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 0,
+          "inconsistent": 19,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1082,
+         "missed": 38,
+         "invented": 7,
+         "wrong": 10
+        }
+       },
+       "all": {
+        "macro": 0.8,
+        "per_case": {
+         "unique": 0.85,
+         "ambiguous": 0.7,
+         "inconsistent": 0.85
+        },
+        "confusion": {
+         "unique": {
+          "unique": 17,
+          "ambiguous": 2,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 18,
+          "inconsistent": 2,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 0,
+          "inconsistent": 19,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1082,
+         "missed": 38,
+         "invented": 7,
+         "wrong": 10
+        }
+       }
+      },
+      "calls_mean": 3,
+      "calls_max": 3,
+      "reask_calls": {},
+      "reask_lines": {}
+     }
+    ]
+   }
+  },
+  "3x-followup": {
+   "budget": "3x",
+   "fixname": "F2",
+   "stages": {
+    "3x": [
+     {
+      "fix": {
+       "no fixes": {
+        "macro": 0.8333,
+        "per_case": {
+         "unique": 0.9,
+         "ambiguous": 0.8,
+         "inconsistent": 0.8
+        },
+        "confusion": {
+         "unique": {
+          "unique": 18,
+          "ambiguous": 1,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 0,
+          "ambiguous": 1,
+          "inconsistent": 19,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1089,
+         "missed": 32,
+         "wrong": 11,
+         "invented": 5
+        }
+       },
+       "F1": {
+        "macro": 0.8333,
+        "per_case": {
+         "unique": 0.9,
+         "ambiguous": 0.8,
+         "inconsistent": 0.8
+        },
+        "confusion": {
+         "unique": {
+          "unique": 18,
+          "ambiguous": 1,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 0,
+          "ambiguous": 1,
+          "inconsistent": 19,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1090,
+         "missed": 32,
+         "wrong": 10,
+         "invented": 5
+        }
+       },
+       "F2": {
+        "macro": 0.85,
+        "per_case": {
+         "unique": 0.9,
+         "ambiguous": 0.8,
+         "inconsistent": 0.85
+        },
+        "confusion": {
+         "unique": {
+          "unique": 18,
+          "ambiguous": 1,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 0,
+          "ambiguous": 1,
+          "inconsistent": 19,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1091,
+         "missed": 32,
+         "invented": 5,
+         "wrong": 9
+        }
+       },
+       "all": {
+        "macro": 0.85,
+        "per_case": {
+         "unique": 0.9,
+         "ambiguous": 0.8,
+         "inconsistent": 0.85
+        },
+        "confusion": {
+         "unique": {
+          "unique": 18,
+          "ambiguous": 1,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 0,
+          "ambiguous": 1,
+          "inconsistent": 19,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1092,
+         "missed": 32,
+         "invented": 5,
+         "wrong": 8
+        }
+       }
+      },
+      "calls_mean": 2.716666666666667,
+      "calls_max": 3,
+      "reask_calls": {
+       "3x": 43
+      },
+      "reask_lines": {
+       "3x": 81
+      }
+     }
+    ]
+   }
+  },
+  "10x": {
+   "budget": "10x",
+   "fixname": "F2",
+   "stages": {
+    "vote": [
+     {
+      "fix": {
+       "no fixes": {
+        "macro": 0.8167,
+        "per_case": {
+         "unique": 0.85,
+         "ambiguous": 0.75,
+         "inconsistent": 0.85
+        },
+        "confusion": {
+         "unique": {
+          "unique": 17,
+          "ambiguous": 3,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 1,
+          "inconsistent": 18,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1086,
+         "missed": 41,
+         "wrong": 8,
+         "invented": 2
+        }
+       },
+       "F1": {
+        "macro": 0.8167,
+        "per_case": {
+         "unique": 0.85,
+         "ambiguous": 0.75,
+         "inconsistent": 0.85
+        },
+        "confusion": {
+         "unique": {
+          "unique": 17,
+          "ambiguous": 3,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 1,
+          "inconsistent": 18,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1086,
+         "missed": 41,
+         "wrong": 8,
+         "invented": 2
+        }
+       },
+       "F2": {
+        "macro": 0.8167,
+        "per_case": {
+         "unique": 0.85,
+         "ambiguous": 0.75,
+         "inconsistent": 0.85
+        },
+        "confusion": {
+         "unique": {
+          "unique": 17,
+          "ambiguous": 3,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 1,
+          "inconsistent": 18,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1086,
+         "missed": 41,
+         "wrong": 8,
+         "invented": 2
+        }
+       },
+       "all": {
+        "macro": 0.8167,
+        "per_case": {
+         "unique": 0.85,
+         "ambiguous": 0.75,
+         "inconsistent": 0.85
+        },
+        "confusion": {
+         "unique": {
+          "unique": 17,
+          "ambiguous": 3,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 1,
+          "inconsistent": 18,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1086,
+         "missed": 41,
+         "wrong": 8,
+         "invented": 2
+        }
+       }
+      },
+      "calls_mean": 3,
+      "calls_max": 3,
+      "reask_calls": {},
+      "reask_lines": {}
+     }
+    ],
+    "10x": [
+     {
+      "fix": {
+       "no fixes": {
+        "macro": 0.85,
+        "per_case": {
+         "unique": 0.9,
+         "ambiguous": 0.75,
+         "inconsistent": 0.9
+        },
+        "confusion": {
+         "unique": {
+          "unique": 18,
+          "ambiguous": 1,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 0,
+          "inconsistent": 19,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1094,
+         "missed": 30,
+         "wrong": 11,
+         "invented": 2
+        }
+       },
+       "F1": {
+        "macro": 0.8667,
+        "per_case": {
+         "unique": 0.9,
+         "ambiguous": 0.75,
+         "inconsistent": 0.95
+        },
+        "confusion": {
+         "unique": {
+          "unique": 18,
+          "ambiguous": 1,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 0,
+          "ambiguous": 0,
+          "inconsistent": 20,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1095,
+         "missed": 30,
+         "wrong": 10,
+         "invented": 2
+        }
+       },
+       "F2": {
+        "macro": 0.85,
+        "per_case": {
+         "unique": 0.9,
+         "ambiguous": 0.75,
+         "inconsistent": 0.9
+        },
+        "confusion": {
+         "unique": {
+          "unique": 18,
+          "ambiguous": 1,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 0,
+          "inconsistent": 19,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1094,
+         "missed": 30,
+         "wrong": 11,
+         "invented": 2
+        }
+       },
+       "all": {
+        "macro": 0.8667,
+        "per_case": {
+         "unique": 0.9,
+         "ambiguous": 0.75,
+         "inconsistent": 0.95
+        },
+        "confusion": {
+         "unique": {
+          "unique": 18,
+          "ambiguous": 1,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 0,
+          "ambiguous": 0,
+          "inconsistent": 20,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1095,
+         "missed": 30,
+         "wrong": 10,
+         "invented": 2
+        }
+       }
+      },
+      "calls_mean": 4.433333333333334,
+      "calls_max": 7,
+      "reask_calls": {
+       "names": 24,
+       "missed": 27,
+       "order": 12,
+       "kind": 22,
+       "contradiction": 1
+      },
+      "reask_lines": {
+       "names": 36,
+       "missed": 39,
+       "order": 13,
+       "kind": 38,
+       "contradiction": 3
+      }
+     }
+    ]
+   }
+  },
+  "10x-zeroshot": {
+   "budget": "10x",
+   "fixname": "F2",
+   "stages": {
+    "vote": [
+     {
+      "fix": {
+       "no fixes": {
+        "macro": 0.5167,
+        "per_case": {
+         "unique": 0.5,
+         "ambiguous": 0.45,
+         "inconsistent": 0.6
+        },
+        "confusion": {
+         "unique": {
+          "unique": 13,
+          "ambiguous": 7,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 20,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 5,
+          "ambiguous": 2,
+          "inconsistent": 13,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1033,
+         "missed": 80,
+         "wrong": 23,
+         "invented": 1
+        }
+       },
+       "F1": {
+        "macro": 0.5333,
+        "per_case": {
+         "unique": 0.5,
+         "ambiguous": 0.45,
+         "inconsistent": 0.65
+        },
+        "confusion": {
+         "unique": {
+          "unique": 13,
+          "ambiguous": 7,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 20,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 4,
+          "ambiguous": 2,
+          "inconsistent": 14,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1036,
+         "missed": 80,
+         "wrong": 20,
+         "invented": 1
+        }
+       },
+       "F2": {
+        "macro": 0.5167,
+        "per_case": {
+         "unique": 0.5,
+         "ambiguous": 0.45,
+         "inconsistent": 0.6
+        },
+        "confusion": {
+         "unique": {
+          "unique": 13,
+          "ambiguous": 7,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 20,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 5,
+          "ambiguous": 2,
+          "inconsistent": 13,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1033,
+         "missed": 80,
+         "wrong": 23,
+         "invented": 1
+        }
+       },
+       "all": {
+        "macro": 0.5333,
+        "per_case": {
+         "unique": 0.5,
+         "ambiguous": 0.45,
+         "inconsistent": 0.65
+        },
+        "confusion": {
+         "unique": {
+          "unique": 13,
+          "ambiguous": 7,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 20,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 4,
+          "ambiguous": 2,
+          "inconsistent": 14,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1036,
+         "missed": 80,
+         "wrong": 20,
+         "invented": 1
+        }
+       }
+      },
+      "calls_mean": 3,
+      "calls_max": 3,
+      "reask_calls": {},
+      "reask_lines": {}
+     }
+    ],
+    "10x": [
+     {
+      "fix": {
+       "no fixes": {
+        "macro": 0.6667,
+        "per_case": {
+         "unique": 0.6,
+         "ambiguous": 0.65,
+         "inconsistent": 0.75
+        },
+        "confusion": {
+         "unique": {
+          "unique": 14,
+          "ambiguous": 5,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 20,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 3,
+          "ambiguous": 2,
+          "inconsistent": 15,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1060,
+         "missed": 61,
+         "wrong": 14,
+         "invented": 2
+        }
+       },
+       "F1": {
+        "macro": 0.6833,
+        "per_case": {
+         "unique": 0.6,
+         "ambiguous": 0.65,
+         "inconsistent": 0.8
+        },
+        "confusion": {
+         "unique": {
+          "unique": 14,
+          "ambiguous": 5,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 20,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 2,
+          "ambiguous": 2,
+          "inconsistent": 16,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1062,
+         "missed": 61,
+         "wrong": 12,
+         "invented": 2
+        }
+       },
+       "F2": {
+        "macro": 0.6667,
+        "per_case": {
+         "unique": 0.6,
+         "ambiguous": 0.65,
+         "inconsistent": 0.75
+        },
+        "confusion": {
+         "unique": {
+          "unique": 14,
+          "ambiguous": 5,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 20,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 3,
+          "ambiguous": 2,
+          "inconsistent": 15,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1060,
+         "missed": 61,
+         "wrong": 14,
+         "invented": 2
+        }
+       },
+       "all": {
+        "macro": 0.6833,
+        "per_case": {
+         "unique": 0.6,
+         "ambiguous": 0.65,
+         "inconsistent": 0.8
+        },
+        "confusion": {
+         "unique": {
+          "unique": 14,
+          "ambiguous": 5,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 20,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 2,
+          "ambiguous": 2,
+          "inconsistent": 16,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1062,
+         "missed": 61,
+         "wrong": 12,
+         "invented": 2
+        }
+       }
+      },
+      "calls_mean": 5.066666666666666,
+      "calls_max": 7,
+      "reask_calls": {
+       "names": 38,
+       "order": 8,
+       "kind": 42,
+       "missed": 35,
+       "contradiction": 1
+      },
+      "reask_lines": {
+       "names": 82,
+       "order": 8,
+       "kind": 99,
+       "missed": 75,
+       "contradiction": 2
+      }
+     }
+    ]
+   }
+  },
+  "10x-norestate": {
+   "budget": "10x",
+   "fixname": "F2",
+   "stages": {
+    "vote": [
+     {
+      "fix": {
+       "no fixes": {
+        "macro": 0.6833,
+        "per_case": {
+         "unique": 0.7,
+         "ambiguous": 0.6,
+         "inconsistent": 0.75
+        },
+        "confusion": {
+         "unique": {
+          "unique": 14,
+          "ambiguous": 3,
+          "inconsistent": 3,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 20,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 2,
+          "inconsistent": 17,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1075,
+         "missed": 53,
+         "wrong": 9
+        }
+       },
+       "F1": {
+        "macro": 0.6833,
+        "per_case": {
+         "unique": 0.7,
+         "ambiguous": 0.6,
+         "inconsistent": 0.75
+        },
+        "confusion": {
+         "unique": {
+          "unique": 14,
+          "ambiguous": 3,
+          "inconsistent": 3,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 20,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 2,
+          "inconsistent": 17,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1075,
+         "missed": 53,
+         "wrong": 9
+        }
+       },
+       "F2": {
+        "macro": 0.6833,
+        "per_case": {
+         "unique": 0.7,
+         "ambiguous": 0.6,
+         "inconsistent": 0.75
+        },
+        "confusion": {
+         "unique": {
+          "unique": 14,
+          "ambiguous": 3,
+          "inconsistent": 3,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 20,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 2,
+          "inconsistent": 17,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1075,
+         "missed": 53,
+         "wrong": 9
+        }
+       },
+       "all": {
+        "macro": 0.6833,
+        "per_case": {
+         "unique": 0.7,
+         "ambiguous": 0.6,
+         "inconsistent": 0.75
+        },
+        "confusion": {
+         "unique": {
+          "unique": 14,
+          "ambiguous": 3,
+          "inconsistent": 3,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 20,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 2,
+          "inconsistent": 17,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1075,
+         "missed": 53,
+         "wrong": 9
+        }
+       }
+      },
+      "calls_mean": 3,
+      "calls_max": 3,
+      "reask_calls": {},
+      "reask_lines": {}
+     }
+    ],
+    "10x": [
+     {
+      "fix": {
+       "no fixes": {
+        "macro": 0.7,
+        "per_case": {
+         "unique": 0.7,
+         "ambiguous": 0.6,
+         "inconsistent": 0.8
+        },
+        "confusion": {
+         "unique": {
+          "unique": 14,
+          "ambiguous": 3,
+          "inconsistent": 3,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 20,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 2,
+          "inconsistent": 17,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1077,
+         "missed": 53,
+         "wrong": 7
+        }
+       },
+       "F1": {
+        "macro": 0.7,
+        "per_case": {
+         "unique": 0.7,
+         "ambiguous": 0.6,
+         "inconsistent": 0.8
+        },
+        "confusion": {
+         "unique": {
+          "unique": 14,
+          "ambiguous": 3,
+          "inconsistent": 3,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 20,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 2,
+          "inconsistent": 17,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1077,
+         "missed": 53,
+         "wrong": 7
+        }
+       },
+       "F2": {
+        "macro": 0.7,
+        "per_case": {
+         "unique": 0.7,
+         "ambiguous": 0.6,
+         "inconsistent": 0.8
+        },
+        "confusion": {
+         "unique": {
+          "unique": 14,
+          "ambiguous": 3,
+          "inconsistent": 3,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 20,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 2,
+          "inconsistent": 17,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1077,
+         "missed": 53,
+         "wrong": 7
+        }
+       },
+       "all": {
+        "macro": 0.7,
+        "per_case": {
+         "unique": 0.7,
+         "ambiguous": 0.6,
+         "inconsistent": 0.8
+        },
+        "confusion": {
+         "unique": {
+          "unique": 14,
+          "ambiguous": 3,
+          "inconsistent": 3,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 20,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 2,
+          "inconsistent": 17,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1077,
+         "missed": 53,
+         "wrong": 7
+        }
+       }
+      },
+      "calls_mean": 3.9833333333333334,
+      "calls_max": 7,
+      "reask_calls": {
+       "names": 27,
+       "missed": 11,
+       "kind": 12,
+       "contradiction": 3,
+       "order": 6
+      },
+      "reask_lines": {
+       "names": 39,
+       "missed": 15,
+       "kind": 15,
+       "contradiction": 19,
+       "order": 8
+      }
+     }
+    ]
+   }
+  },
+  "10x-norepair": {
+   "budget": "10x",
+   "fixname": "no fixes",
+   "stages": {
+    "vote": [
+     {
+      "fix": {
+       "no fixes": {
+        "macro": 0.7667,
+        "per_case": {
+         "unique": 0.8,
+         "ambiguous": 0.75,
+         "inconsistent": 0.75
+        },
+        "confusion": {
+         "unique": {
+          "unique": 16,
+          "ambiguous": 3,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 1,
+          "inconsistent": 18,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1085,
+         "missed": 39,
+         "wrong": 11,
+         "invented": 2
+        }
+       },
+       "F1": {
+        "macro": 0.7667,
+        "per_case": {
+         "unique": 0.8,
+         "ambiguous": 0.75,
+         "inconsistent": 0.75
+        },
+        "confusion": {
+         "unique": {
+          "unique": 16,
+          "ambiguous": 3,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 1,
+          "inconsistent": 18,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1085,
+         "missed": 39,
+         "wrong": 11,
+         "invented": 2
+        }
+       },
+       "F2": {
+        "macro": 0.8167,
+        "per_case": {
+         "unique": 0.85,
+         "ambiguous": 0.75,
+         "inconsistent": 0.85
+        },
+        "confusion": {
+         "unique": {
+          "unique": 17,
+          "ambiguous": 3,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 1,
+          "inconsistent": 18,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1087,
+         "missed": 40,
+         "wrong": 8,
+         "invented": 2
+        }
+       },
+       "all": {
+        "macro": 0.8167,
+        "per_case": {
+         "unique": 0.85,
+         "ambiguous": 0.75,
+         "inconsistent": 0.85
+        },
+        "confusion": {
+         "unique": {
+          "unique": 17,
+          "ambiguous": 3,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 1,
+          "inconsistent": 18,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1087,
+         "missed": 40,
+         "wrong": 8,
+         "invented": 2
+        }
+       }
+      },
+      "calls_mean": 3,
+      "calls_max": 3,
+      "reask_calls": {},
+      "reask_lines": {}
+     }
+    ],
+    "10x": [
+     {
+      "fix": {
+       "no fixes": {
+        "macro": 0.8,
+        "per_case": {
+         "unique": 0.85,
+         "ambiguous": 0.75,
+         "inconsistent": 0.8
+        },
+        "confusion": {
+         "unique": {
+          "unique": 17,
+          "ambiguous": 1,
+          "inconsistent": 2,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 1,
+          "inconsistent": 18,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1092,
+         "missed": 30,
+         "wrong": 13,
+         "invented": 2
+        }
+       },
+       "F1": {
+        "macro": 0.8167,
+        "per_case": {
+         "unique": 0.85,
+         "ambiguous": 0.75,
+         "inconsistent": 0.85
+        },
+        "confusion": {
+         "unique": {
+          "unique": 17,
+          "ambiguous": 1,
+          "inconsistent": 2,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 0,
+          "ambiguous": 1,
+          "inconsistent": 19,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1093,
+         "missed": 30,
+         "wrong": 12,
+         "invented": 2
+        }
+       },
+       "F2": {
+        "macro": 0.8333,
+        "per_case": {
+         "unique": 0.9,
+         "ambiguous": 0.75,
+         "inconsistent": 0.85
+        },
+        "confusion": {
+         "unique": {
+          "unique": 18,
+          "ambiguous": 1,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 1,
+          "inconsistent": 18,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1093,
+         "missed": 31,
+         "wrong": 11,
+         "invented": 2
+        }
+       },
+       "all": {
+        "macro": 0.85,
+        "per_case": {
+         "unique": 0.9,
+         "ambiguous": 0.75,
+         "inconsistent": 0.9
+        },
+        "confusion": {
+         "unique": {
+          "unique": 18,
+          "ambiguous": 1,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 0,
+          "ambiguous": 1,
+          "inconsistent": 19,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1094,
+         "missed": 31,
+         "wrong": 10,
+         "invented": 2
+        }
+       }
+      },
+      "calls_mean": 4.433333333333334,
+      "calls_max": 7,
+      "reask_calls": {
+       "names": 24,
+       "missed": 27,
+       "order": 12,
+       "kind": 22,
+       "contradiction": 1
+      },
+      "reask_lines": {
+       "names": 36,
+       "missed": 39,
+       "order": 13,
+       "kind": 38,
+       "contradiction": 3
+      }
+     }
+    ]
+   }
+  },
+  "10x-sameprompt": {
+   "budget": "10x",
+   "fixname": "F2",
+   "stages": {
+    "vote": [
+     {
+      "fix": {
+       "no fixes": {
+        "macro": 0.8,
+        "per_case": {
+         "unique": 0.85,
+         "ambiguous": 0.7,
+         "inconsistent": 0.85
+        },
+        "confusion": {
+         "unique": {
+          "unique": 17,
+          "ambiguous": 2,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 18,
+          "inconsistent": 2,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 0,
+          "inconsistent": 19,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1082,
+         "missed": 38,
+         "invented": 7,
+         "wrong": 10
+        }
+       },
+       "F1": {
+        "macro": 0.8,
+        "per_case": {
+         "unique": 0.85,
+         "ambiguous": 0.7,
+         "inconsistent": 0.85
+        },
+        "confusion": {
+         "unique": {
+          "unique": 17,
+          "ambiguous": 2,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 18,
+          "inconsistent": 2,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 0,
+          "inconsistent": 19,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1082,
+         "missed": 38,
+         "invented": 7,
+         "wrong": 10
+        }
+       },
+       "F2": {
+        "macro": 0.8,
+        "per_case": {
+         "unique": 0.85,
+         "ambiguous": 0.7,
+         "inconsistent": 0.85
+        },
+        "confusion": {
+         "unique": {
+          "unique": 17,
+          "ambiguous": 2,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 18,
+          "inconsistent": 2,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 0,
+          "inconsistent": 19,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1082,
+         "missed": 38,
+         "invented": 7,
+         "wrong": 10
+        }
+       },
+       "all": {
+        "macro": 0.8,
+        "per_case": {
+         "unique": 0.85,
+         "ambiguous": 0.7,
+         "inconsistent": 0.85
+        },
+        "confusion": {
+         "unique": {
+          "unique": 17,
+          "ambiguous": 2,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 18,
+          "inconsistent": 2,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 0,
+          "inconsistent": 19,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1082,
+         "missed": 38,
+         "invented": 7,
+         "wrong": 10
+        }
+       }
+      },
+      "calls_mean": 3,
+      "calls_max": 3,
+      "reask_calls": {},
+      "reask_lines": {}
+     }
+    ],
+    "10x": [
+     {
+      "fix": {
+       "no fixes": {
+        "macro": 0.85,
+        "per_case": {
+         "unique": 0.95,
+         "ambiguous": 0.75,
+         "inconsistent": 0.85
+        },
+        "confusion": {
+         "unique": {
+          "unique": 19,
+          "ambiguous": 1,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 17,
+          "inconsistent": 3,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 0,
+          "ambiguous": 1,
+          "inconsistent": 19,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1097,
+         "missed": 23,
+         "invented": 9,
+         "wrong": 8
+        }
+       },
+       "F1": {
+        "macro": 0.85,
+        "per_case": {
+         "unique": 0.95,
+         "ambiguous": 0.75,
+         "inconsistent": 0.85
+        },
+        "confusion": {
+         "unique": {
+          "unique": 19,
+          "ambiguous": 1,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 17,
+          "inconsistent": 3,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 0,
+          "ambiguous": 1,
+          "inconsistent": 19,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1097,
+         "missed": 23,
+         "invented": 9,
+         "wrong": 8
+        }
+       },
+       "F2": {
+        "macro": 0.85,
+        "per_case": {
+         "unique": 0.95,
+         "ambiguous": 0.75,
+         "inconsistent": 0.85
+        },
+        "confusion": {
+         "unique": {
+          "unique": 19,
+          "ambiguous": 1,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 17,
+          "inconsistent": 3,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 0,
+          "ambiguous": 1,
+          "inconsistent": 19,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1097,
+         "missed": 23,
+         "invented": 9,
+         "wrong": 8
+        }
+       },
+       "all": {
+        "macro": 0.85,
+        "per_case": {
+         "unique": 0.95,
+         "ambiguous": 0.75,
+         "inconsistent": 0.85
+        },
+        "confusion": {
+         "unique": {
+          "unique": 19,
+          "ambiguous": 1,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 17,
+          "inconsistent": 3,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 0,
+          "ambiguous": 1,
+          "inconsistent": 19,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1097,
+         "missed": 23,
+         "invented": 9,
+         "wrong": 8
+        }
+       }
+      },
+      "calls_mean": 4.383333333333334,
+      "calls_max": 7,
+      "reask_calls": {
+       "missed": 30,
+       "kind": 24,
+       "names": 21,
+       "contradiction": 2,
+       "order": 6
+      },
+      "reask_lines": {
+       "missed": 45,
+       "kind": 38,
+       "names": 26,
+       "contradiction": 5,
+       "order": 8
+      }
+     }
+    ]
+   }
+  },
+  "10x-oneread": {
+   "budget": "10x",
+   "fixname": "F2",
+   "stages": {
+    "vote": [
+     {
+      "fix": {
+       "no fixes": {
+        "macro": 0.7833,
+        "per_case": {
+         "unique": 0.8,
+         "ambiguous": 0.75,
+         "inconsistent": 0.8
+        },
+        "confusion": {
+         "unique": {
+          "unique": 16,
+          "ambiguous": 4,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 18,
+          "inconsistent": 2,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 1,
+          "inconsistent": 18,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1074,
+         "missed": 46,
+         "wrong": 10,
+         "invented": 7
+        }
+       },
+       "F1": {
+        "macro": 0.7833,
+        "per_case": {
+         "unique": 0.8,
+         "ambiguous": 0.75,
+         "inconsistent": 0.8
+        },
+        "confusion": {
+         "unique": {
+          "unique": 16,
+          "ambiguous": 4,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 18,
+          "inconsistent": 2,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 1,
+          "inconsistent": 18,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1074,
+         "missed": 46,
+         "wrong": 10,
+         "invented": 7
+        }
+       },
+       "F2": {
+        "macro": 0.7833,
+        "per_case": {
+         "unique": 0.8,
+         "ambiguous": 0.75,
+         "inconsistent": 0.8
+        },
+        "confusion": {
+         "unique": {
+          "unique": 16,
+          "ambiguous": 4,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 18,
+          "inconsistent": 2,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 1,
+          "inconsistent": 18,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1074,
+         "missed": 46,
+         "wrong": 10,
+         "invented": 7
+        }
+       },
+       "all": {
+        "macro": 0.7833,
+        "per_case": {
+         "unique": 0.8,
+         "ambiguous": 0.75,
+         "inconsistent": 0.8
+        },
+        "confusion": {
+         "unique": {
+          "unique": 16,
+          "ambiguous": 4,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 18,
+          "inconsistent": 2,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 1,
+          "inconsistent": 18,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1074,
+         "missed": 46,
+         "wrong": 10,
+         "invented": 7
+        }
+       }
+      },
+      "calls_mean": 1,
+      "calls_max": 1,
+      "reask_calls": {},
+      "reask_lines": {}
+     }
+    ],
+    "10x": [
+     {
+      "fix": {
+       "no fixes": {
+        "macro": 0.8667,
+        "per_case": {
+         "unique": 0.95,
+         "ambiguous": 0.8,
+         "inconsistent": 0.85
+        },
+        "confusion": {
+         "unique": {
+          "unique": 19,
+          "ambiguous": 1,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 18,
+          "inconsistent": 2,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 0,
+          "inconsistent": 19,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1087,
+         "missed": 33,
+         "wrong": 10,
+         "invented": 7
+        }
+       },
+       "F1": {
+        "macro": 0.8667,
+        "per_case": {
+         "unique": 0.95,
+         "ambiguous": 0.8,
+         "inconsistent": 0.85
+        },
+        "confusion": {
+         "unique": {
+          "unique": 19,
+          "ambiguous": 1,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 18,
+          "inconsistent": 2,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 0,
+          "inconsistent": 19,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1087,
+         "missed": 33,
+         "wrong": 10,
+         "invented": 7
+        }
+       },
+       "F2": {
+        "macro": 0.8667,
+        "per_case": {
+         "unique": 0.95,
+         "ambiguous": 0.8,
+         "inconsistent": 0.85
+        },
+        "confusion": {
+         "unique": {
+          "unique": 19,
+          "ambiguous": 1,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 18,
+          "inconsistent": 2,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 0,
+          "inconsistent": 19,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1087,
+         "missed": 33,
+         "wrong": 10,
+         "invented": 7
+        }
+       },
+       "all": {
+        "macro": 0.8667,
+        "per_case": {
+         "unique": 0.95,
+         "ambiguous": 0.8,
+         "inconsistent": 0.85
+        },
+        "confusion": {
+         "unique": {
+          "unique": 19,
+          "ambiguous": 1,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 18,
+          "inconsistent": 2,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 0,
+          "inconsistent": 19,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1087,
+         "missed": 33,
+         "wrong": 10,
+         "invented": 7
+        }
+       }
+      },
+      "calls_mean": 1.4666666666666666,
+      "calls_max": 2,
+      "reask_calls": {
+       "missed": 16,
+       "names": 11,
+       "contradiction": 1
+      },
+      "reask_lines": {
+       "missed": 24,
+       "names": 12,
+       "contradiction": 2
+      }
+     }
+    ]
+   }
+  },
+  "10x-nonames": {
+   "budget": "10x",
+   "fixname": "F2",
+   "stages": {
+    "vote": [
+     {
+      "fix": {
+       "no fixes": {
+        "macro": 0.8167,
+        "per_case": {
+         "unique": 0.85,
+         "ambiguous": 0.75,
+         "inconsistent": 0.85
+        },
+        "confusion": {
+         "unique": {
+          "unique": 17,
+          "ambiguous": 3,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 1,
+          "inconsistent": 18,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1086,
+         "missed": 41,
+         "wrong": 8,
+         "invented": 2
+        }
+       },
+       "F1": {
+        "macro": 0.8167,
+        "per_case": {
+         "unique": 0.85,
+         "ambiguous": 0.75,
+         "inconsistent": 0.85
+        },
+        "confusion": {
+         "unique": {
+          "unique": 17,
+          "ambiguous": 3,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 1,
+          "inconsistent": 18,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1086,
+         "missed": 41,
+         "wrong": 8,
+         "invented": 2
+        }
+       },
+       "F2": {
+        "macro": 0.8167,
+        "per_case": {
+         "unique": 0.85,
+         "ambiguous": 0.75,
+         "inconsistent": 0.85
+        },
+        "confusion": {
+         "unique": {
+          "unique": 17,
+          "ambiguous": 3,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 1,
+          "inconsistent": 18,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1086,
+         "missed": 41,
+         "wrong": 8,
+         "invented": 2
+        }
+       },
+       "all": {
+        "macro": 0.8167,
+        "per_case": {
+         "unique": 0.85,
+         "ambiguous": 0.75,
+         "inconsistent": 0.85
+        },
+        "confusion": {
+         "unique": {
+          "unique": 17,
+          "ambiguous": 3,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 1,
+          "inconsistent": 18,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1086,
+         "missed": 41,
+         "wrong": 8,
+         "invented": 2
+        }
+       }
+      },
+      "calls_mean": 3,
+      "calls_max": 3,
+      "reask_calls": {},
+      "reask_lines": {}
+     }
+    ],
+    "10x": [
+     {
+      "fix": {
+       "no fixes": {
+        "macro": 0.8667,
+        "per_case": {
+         "unique": 0.9,
+         "ambiguous": 0.75,
+         "inconsistent": 0.95
+        },
+        "confusion": {
+         "unique": {
+          "unique": 18,
+          "ambiguous": 1,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 0,
+          "ambiguous": 0,
+          "inconsistent": 20,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1093,
+         "missed": 31,
+         "wrong": 11,
+         "invented": 2
+        }
+       },
+       "F1": {
+        "macro": 0.8667,
+        "per_case": {
+         "unique": 0.9,
+         "ambiguous": 0.75,
+         "inconsistent": 0.95
+        },
+        "confusion": {
+         "unique": {
+          "unique": 18,
+          "ambiguous": 1,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 0,
+          "ambiguous": 0,
+          "inconsistent": 20,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1093,
+         "missed": 31,
+         "wrong": 11,
+         "invented": 2
+        }
+       },
+       "F2": {
+        "macro": 0.8667,
+        "per_case": {
+         "unique": 0.9,
+         "ambiguous": 0.75,
+         "inconsistent": 0.95
+        },
+        "confusion": {
+         "unique": {
+          "unique": 18,
+          "ambiguous": 1,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 0,
+          "ambiguous": 0,
+          "inconsistent": 20,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1093,
+         "missed": 31,
+         "wrong": 11,
+         "invented": 2
+        }
+       },
+       "all": {
+        "macro": 0.8667,
+        "per_case": {
+         "unique": 0.9,
+         "ambiguous": 0.75,
+         "inconsistent": 0.95
+        },
+        "confusion": {
+         "unique": {
+          "unique": 18,
+          "ambiguous": 1,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 0,
+          "ambiguous": 0,
+          "inconsistent": 20,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1093,
+         "missed": 31,
+         "wrong": 11,
+         "invented": 2
+        }
+       }
+      },
+      "calls_mean": 4.033333333333333,
+      "calls_max": 6,
+      "reask_calls": {
+       "missed": 27,
+       "order": 12,
+       "kind": 22,
+       "contradiction": 1
+      },
+      "reask_lines": {
+       "missed": 39,
+       "order": 13,
+       "kind": 38,
+       "contradiction": 3
+      }
+     }
+    ]
+   }
+  },
+  "10x-nomissed": {
+   "budget": "10x",
+   "fixname": "F2",
+   "stages": {
+    "vote": [
+     {
+      "fix": {
+       "no fixes": {
+        "macro": 0.8167,
+        "per_case": {
+         "unique": 0.85,
+         "ambiguous": 0.75,
+         "inconsistent": 0.85
+        },
+        "confusion": {
+         "unique": {
+          "unique": 17,
+          "ambiguous": 3,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 1,
+          "inconsistent": 18,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1086,
+         "missed": 41,
+         "wrong": 8,
+         "invented": 2
+        }
+       },
+       "F1": {
+        "macro": 0.8167,
+        "per_case": {
+         "unique": 0.85,
+         "ambiguous": 0.75,
+         "inconsistent": 0.85
+        },
+        "confusion": {
+         "unique": {
+          "unique": 17,
+          "ambiguous": 3,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 1,
+          "inconsistent": 18,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1086,
+         "missed": 41,
+         "wrong": 8,
+         "invented": 2
+        }
+       },
+       "F2": {
+        "macro": 0.8167,
+        "per_case": {
+         "unique": 0.85,
+         "ambiguous": 0.75,
+         "inconsistent": 0.85
+        },
+        "confusion": {
+         "unique": {
+          "unique": 17,
+          "ambiguous": 3,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 1,
+          "inconsistent": 18,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1086,
+         "missed": 41,
+         "wrong": 8,
+         "invented": 2
+        }
+       },
+       "all": {
+        "macro": 0.8167,
+        "per_case": {
+         "unique": 0.85,
+         "ambiguous": 0.75,
+         "inconsistent": 0.85
+        },
+        "confusion": {
+         "unique": {
+          "unique": 17,
+          "ambiguous": 3,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 1,
+          "inconsistent": 18,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1086,
+         "missed": 41,
+         "wrong": 8,
+         "invented": 2
+        }
+       }
+      },
+      "calls_mean": 3,
+      "calls_max": 3,
+      "reask_calls": {},
+      "reask_lines": {}
+     }
+    ],
+    "10x": [
+     {
+      "fix": {
+       "no fixes": {
+        "macro": 0.8,
+        "per_case": {
+         "unique": 0.85,
+         "ambiguous": 0.75,
+         "inconsistent": 0.8
+        },
+        "confusion": {
+         "unique": {
+          "unique": 17,
+          "ambiguous": 3,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 2,
+          "ambiguous": 1,
+          "inconsistent": 17,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1085,
+         "missed": 40,
+         "wrong": 10,
+         "invented": 2
+        }
+       },
+       "F1": {
+        "macro": 0.8167,
+        "per_case": {
+         "unique": 0.85,
+         "ambiguous": 0.75,
+         "inconsistent": 0.85
+        },
+        "confusion": {
+         "unique": {
+          "unique": 17,
+          "ambiguous": 3,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 1,
+          "inconsistent": 18,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1086,
+         "missed": 40,
+         "wrong": 9,
+         "invented": 2
+        }
+       },
+       "F2": {
+        "macro": 0.8,
+        "per_case": {
+         "unique": 0.85,
+         "ambiguous": 0.75,
+         "inconsistent": 0.8
+        },
+        "confusion": {
+         "unique": {
+          "unique": 17,
+          "ambiguous": 3,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 2,
+          "ambiguous": 1,
+          "inconsistent": 17,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1085,
+         "missed": 40,
+         "wrong": 10,
+         "invented": 2
+        }
+       },
+       "all": {
+        "macro": 0.8167,
+        "per_case": {
+         "unique": 0.85,
+         "ambiguous": 0.75,
+         "inconsistent": 0.85
+        },
+        "confusion": {
+         "unique": {
+          "unique": 17,
+          "ambiguous": 3,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 1,
+          "inconsistent": 18,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1086,
+         "missed": 40,
+         "wrong": 9,
+         "invented": 2
+        }
+       }
+      },
+      "calls_mean": 3.9833333333333334,
+      "calls_max": 6,
+      "reask_calls": {
+       "names": 24,
+       "order": 12,
+       "kind": 22,
+       "contradiction": 1
+      },
+      "reask_lines": {
+       "names": 36,
+       "order": 13,
+       "kind": 38,
+       "contradiction": 3
+      }
+     }
+    ]
+   }
+  },
+  "10x-noorder": {
+   "budget": "10x",
+   "fixname": "F2",
+   "stages": {
+    "vote": [
+     {
+      "fix": {
+       "no fixes": {
+        "macro": 0.8167,
+        "per_case": {
+         "unique": 0.85,
+         "ambiguous": 0.75,
+         "inconsistent": 0.85
+        },
+        "confusion": {
+         "unique": {
+          "unique": 17,
+          "ambiguous": 3,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 1,
+          "inconsistent": 18,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1086,
+         "missed": 41,
+         "wrong": 8,
+         "invented": 2
+        }
+       },
+       "F1": {
+        "macro": 0.8167,
+        "per_case": {
+         "unique": 0.85,
+         "ambiguous": 0.75,
+         "inconsistent": 0.85
+        },
+        "confusion": {
+         "unique": {
+          "unique": 17,
+          "ambiguous": 3,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 1,
+          "inconsistent": 18,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1086,
+         "missed": 41,
+         "wrong": 8,
+         "invented": 2
+        }
+       },
+       "F2": {
+        "macro": 0.8167,
+        "per_case": {
+         "unique": 0.85,
+         "ambiguous": 0.75,
+         "inconsistent": 0.85
+        },
+        "confusion": {
+         "unique": {
+          "unique": 17,
+          "ambiguous": 3,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 1,
+          "inconsistent": 18,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1086,
+         "missed": 41,
+         "wrong": 8,
+         "invented": 2
+        }
+       },
+       "all": {
+        "macro": 0.8167,
+        "per_case": {
+         "unique": 0.85,
+         "ambiguous": 0.75,
+         "inconsistent": 0.85
+        },
+        "confusion": {
+         "unique": {
+          "unique": 17,
+          "ambiguous": 3,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 1,
+          "inconsistent": 18,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1086,
+         "missed": 41,
+         "wrong": 8,
+         "invented": 2
+        }
+       }
+      },
+      "calls_mean": 3,
+      "calls_max": 3,
+      "reask_calls": {},
+      "reask_lines": {}
+     }
+    ],
+    "10x": [
+     {
+      "fix": {
+       "no fixes": {
+        "macro": 0.85,
+        "per_case": {
+         "unique": 0.9,
+         "ambiguous": 0.75,
+         "inconsistent": 0.9
+        },
+        "confusion": {
+         "unique": {
+          "unique": 18,
+          "ambiguous": 1,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 0,
+          "inconsistent": 19,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1094,
+         "missed": 30,
+         "wrong": 11,
+         "invented": 2
+        }
+       },
+       "F1": {
+        "macro": 0.8667,
+        "per_case": {
+         "unique": 0.9,
+         "ambiguous": 0.75,
+         "inconsistent": 0.95
+        },
+        "confusion": {
+         "unique": {
+          "unique": 18,
+          "ambiguous": 1,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 0,
+          "ambiguous": 0,
+          "inconsistent": 20,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1095,
+         "missed": 30,
+         "wrong": 10,
+         "invented": 2
+        }
+       },
+       "F2": {
+        "macro": 0.85,
+        "per_case": {
+         "unique": 0.9,
+         "ambiguous": 0.75,
+         "inconsistent": 0.9
+        },
+        "confusion": {
+         "unique": {
+          "unique": 18,
+          "ambiguous": 1,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 0,
+          "inconsistent": 19,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1094,
+         "missed": 30,
+         "wrong": 11,
+         "invented": 2
+        }
+       },
+       "all": {
+        "macro": 0.8667,
+        "per_case": {
+         "unique": 0.9,
+         "ambiguous": 0.75,
+         "inconsistent": 0.95
+        },
+        "confusion": {
+         "unique": {
+          "unique": 18,
+          "ambiguous": 1,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 0,
+          "ambiguous": 0,
+          "inconsistent": 20,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1095,
+         "missed": 30,
+         "wrong": 10,
+         "invented": 2
+        }
+       }
+      },
+      "calls_mean": 4.233333333333333,
+      "calls_max": 6,
+      "reask_calls": {
+       "names": 24,
+       "missed": 27,
+       "kind": 22,
+       "contradiction": 1
+      },
+      "reask_lines": {
+       "names": 36,
+       "missed": 39,
+       "kind": 38,
+       "contradiction": 3
+      }
+     }
+    ]
+   }
+  },
+  "10x-nokind": {
+   "budget": "10x",
+   "fixname": "F2",
+   "stages": {
+    "vote": [
+     {
+      "fix": {
+       "no fixes": {
+        "macro": 0.8167,
+        "per_case": {
+         "unique": 0.85,
+         "ambiguous": 0.75,
+         "inconsistent": 0.85
+        },
+        "confusion": {
+         "unique": {
+          "unique": 17,
+          "ambiguous": 3,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 1,
+          "inconsistent": 18,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1086,
+         "missed": 41,
+         "wrong": 8,
+         "invented": 2
+        }
+       },
+       "F1": {
+        "macro": 0.8167,
+        "per_case": {
+         "unique": 0.85,
+         "ambiguous": 0.75,
+         "inconsistent": 0.85
+        },
+        "confusion": {
+         "unique": {
+          "unique": 17,
+          "ambiguous": 3,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 1,
+          "inconsistent": 18,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1086,
+         "missed": 41,
+         "wrong": 8,
+         "invented": 2
+        }
+       },
+       "F2": {
+        "macro": 0.8167,
+        "per_case": {
+         "unique": 0.85,
+         "ambiguous": 0.75,
+         "inconsistent": 0.85
+        },
+        "confusion": {
+         "unique": {
+          "unique": 17,
+          "ambiguous": 3,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 1,
+          "inconsistent": 18,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1086,
+         "missed": 41,
+         "wrong": 8,
+         "invented": 2
+        }
+       },
+       "all": {
+        "macro": 0.8167,
+        "per_case": {
+         "unique": 0.85,
+         "ambiguous": 0.75,
+         "inconsistent": 0.85
+        },
+        "confusion": {
+         "unique": {
+          "unique": 17,
+          "ambiguous": 3,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 1,
+          "inconsistent": 18,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1086,
+         "missed": 41,
+         "wrong": 8,
+         "invented": 2
+        }
+       }
+      },
+      "calls_mean": 3,
+      "calls_max": 3,
+      "reask_calls": {},
+      "reask_lines": {}
+     }
+    ],
+    "10x": [
+     {
+      "fix": {
+       "no fixes": {
+        "macro": 0.85,
+        "per_case": {
+         "unique": 0.9,
+         "ambiguous": 0.75,
+         "inconsistent": 0.9
+        },
+        "confusion": {
+         "unique": {
+          "unique": 18,
+          "ambiguous": 1,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 0,
+          "inconsistent": 19,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1096,
+         "missed": 30,
+         "wrong": 9,
+         "invented": 2
+        }
+       },
+       "F1": {
+        "macro": 0.8667,
+        "per_case": {
+         "unique": 0.9,
+         "ambiguous": 0.75,
+         "inconsistent": 0.95
+        },
+        "confusion": {
+         "unique": {
+          "unique": 18,
+          "ambiguous": 1,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 0,
+          "ambiguous": 0,
+          "inconsistent": 20,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1097,
+         "missed": 30,
+         "wrong": 8,
+         "invented": 2
+        }
+       },
+       "F2": {
+        "macro": 0.85,
+        "per_case": {
+         "unique": 0.9,
+         "ambiguous": 0.75,
+         "inconsistent": 0.9
+        },
+        "confusion": {
+         "unique": {
+          "unique": 18,
+          "ambiguous": 1,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 0,
+          "inconsistent": 19,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1096,
+         "missed": 30,
+         "wrong": 9,
+         "invented": 2
+        }
+       },
+       "all": {
+        "macro": 0.8667,
+        "per_case": {
+         "unique": 0.9,
+         "ambiguous": 0.75,
+         "inconsistent": 0.95
+        },
+        "confusion": {
+         "unique": {
+          "unique": 18,
+          "ambiguous": 1,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 0,
+          "ambiguous": 0,
+          "inconsistent": 20,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1097,
+         "missed": 30,
+         "wrong": 8,
+         "invented": 2
+        }
+       }
+      },
+      "calls_mean": 4.05,
+      "calls_max": 6,
+      "reask_calls": {
+       "names": 24,
+       "missed": 27,
+       "order": 12
+      },
+      "reask_lines": {
+       "names": 36,
+       "missed": 39,
+       "order": 13
+      }
+     }
+    ]
+   }
+  },
+  "10x-nocontradiction": {
+   "budget": "10x",
+   "fixname": "F2",
+   "stages": {
+    "vote": [
+     {
+      "fix": {
+       "no fixes": {
+        "macro": 0.8167,
+        "per_case": {
+         "unique": 0.85,
+         "ambiguous": 0.75,
+         "inconsistent": 0.85
+        },
+        "confusion": {
+         "unique": {
+          "unique": 17,
+          "ambiguous": 3,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 1,
+          "inconsistent": 18,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1086,
+         "missed": 41,
+         "wrong": 8,
+         "invented": 2
+        }
+       },
+       "F1": {
+        "macro": 0.8167,
+        "per_case": {
+         "unique": 0.85,
+         "ambiguous": 0.75,
+         "inconsistent": 0.85
+        },
+        "confusion": {
+         "unique": {
+          "unique": 17,
+          "ambiguous": 3,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 1,
+          "inconsistent": 18,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1086,
+         "missed": 41,
+         "wrong": 8,
+         "invented": 2
+        }
+       },
+       "F2": {
+        "macro": 0.8167,
+        "per_case": {
+         "unique": 0.85,
+         "ambiguous": 0.75,
+         "inconsistent": 0.85
+        },
+        "confusion": {
+         "unique": {
+          "unique": 17,
+          "ambiguous": 3,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 1,
+          "inconsistent": 18,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1086,
+         "missed": 41,
+         "wrong": 8,
+         "invented": 2
+        }
+       },
+       "all": {
+        "macro": 0.8167,
+        "per_case": {
+         "unique": 0.85,
+         "ambiguous": 0.75,
+         "inconsistent": 0.85
+        },
+        "confusion": {
+         "unique": {
+          "unique": 17,
+          "ambiguous": 3,
+          "inconsistent": 0,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 1,
+          "inconsistent": 18,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1086,
+         "missed": 41,
+         "wrong": 8,
+         "invented": 2
+        }
+       }
+      },
+      "calls_mean": 3,
+      "calls_max": 3,
+      "reask_calls": {},
+      "reask_lines": {}
+     }
+    ],
+    "10x": [
+     {
+      "fix": {
+       "no fixes": {
+        "macro": 0.85,
+        "per_case": {
+         "unique": 0.9,
+         "ambiguous": 0.75,
+         "inconsistent": 0.9
+        },
+        "confusion": {
+         "unique": {
+          "unique": 18,
+          "ambiguous": 1,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 0,
+          "inconsistent": 19,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1094,
+         "missed": 30,
+         "wrong": 11,
+         "invented": 2
+        }
+       },
+       "F1": {
+        "macro": 0.8667,
+        "per_case": {
+         "unique": 0.9,
+         "ambiguous": 0.75,
+         "inconsistent": 0.95
+        },
+        "confusion": {
+         "unique": {
+          "unique": 18,
+          "ambiguous": 1,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 0,
+          "ambiguous": 0,
+          "inconsistent": 20,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1095,
+         "missed": 30,
+         "wrong": 10,
+         "invented": 2
+        }
+       },
+       "F2": {
+        "macro": 0.85,
+        "per_case": {
+         "unique": 0.9,
+         "ambiguous": 0.75,
+         "inconsistent": 0.9
+        },
+        "confusion": {
+         "unique": {
+          "unique": 18,
+          "ambiguous": 1,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 1,
+          "ambiguous": 0,
+          "inconsistent": 19,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1094,
+         "missed": 30,
+         "wrong": 11,
+         "invented": 2
+        }
+       },
+       "all": {
+        "macro": 0.8667,
+        "per_case": {
+         "unique": 0.9,
+         "ambiguous": 0.75,
+         "inconsistent": 0.95
+        },
+        "confusion": {
+         "unique": {
+          "unique": 18,
+          "ambiguous": 1,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "ambiguous": {
+          "unique": 0,
+          "ambiguous": 19,
+          "inconsistent": 1,
+          "unparsed": 0
+         },
+         "inconsistent": {
+          "unique": 0,
+          "ambiguous": 0,
+          "inconsistent": 20,
+          "unparsed": 0
+         }
+        },
+        "lines": {
+         "total": 1137,
+         "correct": 1095,
+         "missed": 30,
+         "wrong": 10,
+         "invented": 2
+        }
+       }
+      },
+      "calls_mean": 4.416666666666667,
+      "calls_max": 7,
+      "reask_calls": {
+       "names": 24,
+       "missed": 27,
+       "order": 12,
+       "kind": 22
+      },
+      "reask_lines": {
+       "names": 36,
+       "missed": 39,
+       "order": 13,
+       "kind": 38
+      }
+     }
+    ]
+   }
+  }
+ }
+}
