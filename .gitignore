@@ -1,13 +1,6 @@
 # secrets
 .env
 
-# task materials (provided with the brief; not redistributed here)
-items.json
-visible_key.json
-score.py
-example_answers.json
-CANDIDATE_BRIEF.md
-
 # outputs
 ablation/
 answers*.json
