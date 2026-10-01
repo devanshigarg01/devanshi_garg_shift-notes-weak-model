@@ -1,7 +1,15 @@
 # Shift notes with a weak model
 
 Granite reads each line into a structured fact; a solver checks all 720 possible rotas and
-answers unique / ambiguous / inconsistent. Details: `docs/writeup.docx`.
+answers unique / ambiguous / inconsistent. Details: `docs/devanshi_garg_write_up.docx`.
+
+## Where things are
+
+| What | Where |
+|---|---|
+| Write-up (2 pages) | `docs/devanshi_garg_write_up.docx` |
+| Reported ablation results | `docs/ablation.md` and `docs/ablation.pdf` |
+| New ablation runs | `ablation/<time>/` (one folder per run: `ablation.md`, `.tex`/`.pdf`, `results.json`, per-system outputs in `runs/`) |
 
 ## Setup
 
