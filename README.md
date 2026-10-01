@@ -5,7 +5,7 @@ answers unique / ambiguous / inconsistent. Details: `docs/writeup.docx`.
 
 ## Setup
 
-Python 3.10+.
+Python 3.9.6 (tested).
 
 ```bash
 pip install -r requirements.txt
