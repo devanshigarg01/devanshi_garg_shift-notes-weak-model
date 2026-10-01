@@ -223,12 +223,38 @@ SHARED = None
 _shared_lock = threading.Lock()
 
 
+ERRORS = []              # failed calls: (item id, error), for the run summary
+
+
+def _load_env():
+    """Read .env next to this file if python-dotenv is installed; plain environment variables
+    work either way."""
+    try:
+        from dotenv import load_dotenv
+        load_dotenv(os.path.join(HERE, ".env"))
+    except ImportError:
+        pass
+
+
+def check_setup():
+    """None if a model call can be made, else a message saying what is missing."""
+    _load_env()
+    try:
+        import openai  # noqa: F401
+    except ImportError:
+        return "the openai package is not installed: pip3 install -r requirements.txt"
+    missing = [k for k in ("OPENROUTER_BASE_URL", "OPENROUTER_API_KEY") if not os.environ.get(k)]
+    if missing:
+        return (f"{' and '.join(missing)} not set: copy .env.example to .env and fill it in "
+                f"(or export the variables)")
+    return None
+
+
 def client():
     global _client
     if _client is None:
-        from dotenv import load_dotenv
         from openai import OpenAI
-        load_dotenv(os.path.join(HERE, ".env"))
+        _load_env()
         _client = OpenAI(base_url=os.environ["OPENROUTER_BASE_URL"], api_key=os.environ["OPENROUTER_API_KEY"],
                          max_retries=0)   # the SDK's own retries would be hidden extra calls
     return _client
@@ -251,6 +277,7 @@ def _request(item, messages):
             limited = "429" in err or "rate limit" in err.lower()
             if not limited or attempt == RETRIES_429:
                 STATS["errors"] += 1
+                ERRORS.append((item["id"], err))
                 return err
             STATS["rate_limited"] += 1
             time.sleep(min(60, 4 * 2 ** attempt))

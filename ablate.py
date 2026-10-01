@@ -258,6 +258,9 @@ def main():
     if a.report:
         return report.build(json.load(open(os.path.join(a.report, "results.json"))), a.report)
 
+    problem = extract.check_setup()
+    if problem:
+        sys.exit(f"cannot call the model: {problem}")
     names = a.only or SUITES[a.suite]
     unknown = [n for n in names if n not in SYSTEMS]
     if unknown:

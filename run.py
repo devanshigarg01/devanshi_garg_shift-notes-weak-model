@@ -41,6 +41,10 @@ def main():
     ap.add_argument("--workers", type=int, default=8, help="items processed in parallel")
     a = ap.parse_args()
 
+    problem = extract.check_setup()
+    if problem:
+        sys.exit(f"cannot call the model: {problem}")
+
     items = json.load(open(a.items))
     answers, calls = {}, {}
     with ThreadPoolExecutor(a.workers) as pool:
@@ -54,12 +58,18 @@ def main():
         json.dump({it["id"]: answers[it["id"]] for it in items}, fh, indent=1)
 
     used = list(calls.values())
+    failed = extract.STATS["errors"]
     assert 1 <= min(used) and max(used) <= CAPS[a.budget], "budget violated"
     cases = Counter(x["case"] for x in answers.values())
     print(f"wrote {a.out}: {len(items)} items, {dict(cases)} | model calls per item: "
           f"min {min(used)}, mean {sum(used) / len(used):.2f}, max {max(used)} | "
-          f"rate-limit retries {extract.STATS['rate_limited']}, failed calls {extract.STATS['errors']}",
+          f"rate-limit retries {extract.STATS['rate_limited']}, failed calls {failed}",
           file=sys.stderr)
+    if failed:
+        iid, err = extract.ERRORS[0]
+        print(f"WARNING: {failed} model call(s) failed; first ({iid}): {err[:300]}", file=sys.stderr)
+        if failed > sum(used) / 2:          # mostly failures: the answers are not the model's
+            sys.exit("most model calls failed, so these answers are not meaningful (see the error above)")
 
 
 if __name__ == "__main__":
