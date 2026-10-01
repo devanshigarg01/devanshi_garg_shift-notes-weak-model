@@ -55,6 +55,8 @@ What each suite runs:
 | main | 16: quick + `1x-zeroshot`, `1x-norestate`, `3x-sameprompt`, `10x-norepair`, `10x-sameprompt`, `10x-oneread`, and each 10x re-ask removed on its own | every row; worked examples and restating at 1x only |
 | full | all 23: main + `1x-oneshot`, `1x-plainfields`, `3x-zeroshot`, `3x-norestate`, `3x-followup`, `10x-zeroshot`, `10x-norestate` | every row at every budget, plus supporting tables (prompt techniques, ways to spend 3 calls, where 10x calls go) |
 
+Every system uses the solver except `1x-direct`, where Granite answers the whole item itself (the "without solver" baseline).
+
 My results (`_orig` files) come from: quick × 3 runs, main × 1, full × 1.
 
 Output: `ablation/ablation_<suite>_suite_<N>_runs.md` and `.tex` (and `.pdf` if `pdflatex` is
