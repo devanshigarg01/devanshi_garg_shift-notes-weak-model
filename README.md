@@ -44,8 +44,18 @@ The task files (`items.json`, `visible_key.json`, `score.py`) are included. Pick
 | `python3 ablate.py --suite main --runs 1` | **main**: the whole main table, prompt components at 1x only (~1,000 calls) | ~35 min |
 | `python3 ablate.py --suite full --runs 1` | **full**: every component at every budget + supporting tables (~1,500 calls) | ~50 min |
 
-Times assume the endpoint's rate limit (~0.5 calls/s); parallel calls back off automatically on
-rate limits (`--workers`, default 8, is the ceiling).
+Times assume the endpoint's rate limit (~0.5 calls/s). `--workers` (default 8) is a ceiling on
+parallel calls: each rate limit halves it, a streak of successes adds one back.
+
+What each suite runs:
+
+| Suite | Systems | Rows of the main table it fills |
+|---|---|---|
+| quick | `1x`, `3x`, `3x-norepair`, `10x` | full system at every budget; wrong-name repair at 1x/3x; 3-read vote vs one read; all 10x re-asks vs the vote alone. Other rows show `--`. |
+| main | 16: quick + `1x-direct`, `1x-zeroshot`, `1x-norestate`, `3x-sameprompt`, `10x-norepair`, `10x-sameprompt`, `10x-oneread`, and each 10x re-ask removed on its own | every row; worked examples and restating at 1x only |
+| full | all 23: main + `1x-oneshot`, `1x-plainfields`, `3x-zeroshot`, `3x-norestate`, `3x-followup`, `10x-zeroshot`, `10x-norestate` | every row at every budget, plus supporting tables (prompt techniques, ways to spend 3 calls, where 10x calls go) |
+
+My results (`_orig` files) come from: quick × 3 runs, main × 1, full × 1.
 
 Output: `ablation/ablation_<suite>_suite_<N>_runs.md` and `.tex` (and `.pdf` if `pdflatex` is
 installed), named by suite and number of runs; a re-run with the same settings overwrites them.
