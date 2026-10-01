@@ -49,6 +49,11 @@ Best case: no rate limits, ~1.2 calls/s at 16 parallel calls. Worst case: the en
 to ~0.5 calls/s. `--workers` is a ceiling: each rate limit halves the parallel calls, a streak of
 successes adds one back, so asking for 16 is safe.
 
+**If a run is interrupted** (a laptop going to sleep, a dropped connection), run the same command
+again: it keeps every finished run and redoes only the one that was cut off (`--fresh` starts
+over). On a laptop, stop it sleeping during long runs: `caffeinate -i <command>` on macOS,
+`systemd-inhibit <command>` on Linux; servers need nothing.
+
 **To reproduce:** run quick (1 run is enough) and compare `ablation/ablation_quick_suite_1_run.md`
 with my `ablation/ablation_quick_suite_3_runs_orig.md`: each number should fall within about the
 `±` spread shown there (one item moves a macro score by 1.7 points).

@@ -250,6 +250,7 @@ def main():
                          "main: the whole main table (~1,000); full: every system and table (~1,500)")
     ap.add_argument("--only", nargs="*", help="run only these systems (see SYSTEMS); overrides --suite")
     ap.add_argument("--limit", type=int, help="first N items only (plumbing checks)")
+    ap.add_argument("--fresh", action="store_true", help="start over instead of resuming an interrupted run")
     ap.add_argument("--report", help="a results .json written by an earlier run: rebuild its tables, no calls")
     ap.add_argument("--workers", type=int, default=8, help="max model calls in flight (halves on rate limits, then recovers)")
     ap.add_argument("--items", default=os.path.join(HERE, "items.json"))
@@ -291,10 +292,24 @@ def main():
     print(f"{len(names)} systems x {a.runs} runs x {len(items)} items -> ablation/{out_name}.md", flush=True)
 
     res = {"meta": {"items": len(items), "runs": a.runs, "suite": suite, "started": time.strftime("%Y-%m-%d %H:%M"),
-                    "command": " ".join(["python3", "ablate.py"] + sys.argv[1:])},
+                    "command": " ".join(["python3", "ablate.py"] + sys.argv[1:]), "systems": names, "runs_done": 0},
            "systems": {}}
+    # Resume: an interrupted run of the same ablation (same systems, runs and items) keeps every
+    # run it finished; the run that was cut off is redone from the start, so its systems still
+    # share their reads.
+    path = os.path.join(final_dir, out_name + ".json")
+    if not a.fresh and os.path.exists(path):
+        old = json.load(open(path))
+        m = old.get("meta", {})
+        if ("minutes" not in m and m.get("systems") == names and m.get("runs") == a.runs
+                and m.get("items") == len(items) and m.get("runs_done", 0) > 0):
+            done = m["runs_done"]
+            for e in old["systems"].values():
+                e["stages"] = {t: recs[:done] for t, recs in e["stages"].items()}
+            res = old
+            print(f"resuming {out_name}: runs 1-{done} already done (--fresh to start over)", flush=True)
     t0 = time.time()
-    for r in range(1, a.runs + 1):
+    for r in range(res["meta"]["runs_done"] + 1, a.runs + 1):
         extract.SHARED = {}                   # replies shared by the systems of this run only
         for name in names:
             spec = SYSTEMS[name]
@@ -307,10 +322,12 @@ def main():
             final = stages[spec["budget"]]
             print(f"  run {r}  {name:16s} macro={100 * final['fix'][e['fixname']]['macro']:5.1f}  "
                   f"calls/item={final['calls_mean']:.2f}", flush=True)
-            json.dump(res, open(os.path.join(final_dir, out_name + ".json"), "w"), indent=1)
+            json.dump(res, open(path, "w"), indent=1)
+        res["meta"]["runs_done"] = r            # checkpoint: run r is complete
+        json.dump(res, open(path, "w"), indent=1)
     res["meta"]["minutes"] = round((time.time() - t0) / 60, 1)
     res["meta"]["calls"] = dict(extract.STATS)
-    json.dump(res, open(os.path.join(final_dir, out_name + ".json"), "w"), indent=1)
+    json.dump(res, open(path, "w"), indent=1)
     report.build(res, final_dir, out_name)
     tmp.cleanup()
 
