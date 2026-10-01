@@ -17,6 +17,8 @@ The submitted system at each budget (every other system is one of these with one
   3x   three reads with prompts A, B, C -> per-line majority vote -> repair -> solver
   10x  the 3x system, then targeted re-asks of the lines code flags, one call per kind of problem
 
+An interrupted ablation resumes where it stopped: re-run the same command (--fresh starts over).
+
 Within one run, systems share model replies: a read with the same prompt (and the same n-th read
 of it) for the same item is made once and reused, and so is a re-ask with exactly the same text.
 So systems that differ only after the reads are compared on the same reads (paired), and a run
@@ -294,24 +296,46 @@ def main():
     res = {"meta": {"items": len(items), "runs": a.runs, "suite": suite, "started": time.strftime("%Y-%m-%d %H:%M"),
                     "command": " ".join(["python3", "ablate.py"] + sys.argv[1:]), "systems": names, "runs_done": 0},
            "systems": {}}
-    # Resume: an interrupted run of the same ablation (same systems, runs and items) keeps every
-    # run it finished; the run that was cut off is redone from the start, so its systems still
-    # share their reads.
+    # Checkpoints: after every system, the scores so far and this run's shared replies are saved.
+    # Re-running the same command (same systems, runs and items) resumes after the last finished
+    # system, with the same shared replies, so systems keep sharing reads across the interruption.
     path = os.path.join(final_dir, out_name + ".json")
+    shared_path = os.path.join(final_dir, ".shared_replies.json")   # deleted when the ablation finishes
+    done_in_run = []
     if not a.fresh and os.path.exists(path):
         old = json.load(open(path))
         m = old.get("meta", {})
         if ("minutes" not in m and m.get("systems") == names and m.get("runs") == a.runs
-                and m.get("items") == len(items) and m.get("runs_done", 0) > 0):
-            done = m["runs_done"]
-            for e in old["systems"].values():
-                e["stages"] = {t: recs[:done] for t, recs in e["stages"].items()}
+                and m.get("items") == len(items)):
             res = old
-            print(f"resuming {out_name}: runs 1-{done} already done (--fresh to start over)", flush=True)
+            r_now = m.get("runs_done", 0) + 1
+            done_in_run = [n for n in m.get("done_in_run", []) if n in names]
+            for n, e in res["systems"].items():          # drop anything not checkpointed
+                keep = r_now if n in done_in_run else r_now - 1
+                e["stages"] = {t: recs[:keep] for t, recs in e["stages"].items()}
+            if done_in_run and os.path.exists(shared_path):
+                extract.SHARED = json.load(open(shared_path))
+            elif done_in_run:                              # replies lost: redo this run from the start
+                done_in_run = []
+                for e in res["systems"].values():
+                    e["stages"] = {t: recs[:r_now - 1] for t, recs in e["stages"].items()}
+            print(f"resuming {out_name}: {r_now - 1} run(s) done"
+                  + (f", run {r_now}: {len(done_in_run)}/{len(names)} systems done" if done_in_run else "")
+                  + " (--fresh to start over)", flush=True)
+    res["meta"]["done_in_run"] = done_in_run
+
+    def checkpoint():
+        res["meta"]["done_in_run"] = done_in_run
+        json.dump(res, open(path, "w"), indent=1)
+        json.dump(extract.SHARED, open(shared_path, "w"))
+
     t0 = time.time()
     for r in range(res["meta"]["runs_done"] + 1, a.runs + 1):
-        extract.SHARED = {}                   # replies shared by the systems of this run only
+        if not done_in_run:
+            extract.SHARED = {}               # replies shared by the systems of this run only
         for name in names:
+            if name in done_in_run:
+                continue
             spec = SYSTEMS[name]
             stages = run_system(name, spec, r, items, a, gold, outdir)
             e = res["systems"].setdefault(name, {
@@ -322,9 +346,15 @@ def main():
             final = stages[spec["budget"]]
             print(f"  run {r}  {name:16s} macro={100 * final['fix'][e['fixname']]['macro']:5.1f}  "
                   f"calls/item={final['calls_mean']:.2f}", flush=True)
-            json.dump(res, open(path, "w"), indent=1)
-        res["meta"]["runs_done"] = r            # checkpoint: run r is complete
-        json.dump(res, open(path, "w"), indent=1)
+            done_in_run.append(name)
+            checkpoint()
+        res["meta"]["runs_done"] = r            # run r is complete
+        done_in_run = []
+        extract.SHARED = {}
+        checkpoint()
+    res["meta"].pop("done_in_run", None)
+    if os.path.exists(shared_path):
+        os.remove(shared_path)
     res["meta"]["minutes"] = round((time.time() - t0) / 60, 1)
     res["meta"]["calls"] = dict(extract.STATS)
     json.dump(res, open(path, "w"), indent=1)

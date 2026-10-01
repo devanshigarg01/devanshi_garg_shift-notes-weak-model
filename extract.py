@@ -11,6 +11,7 @@ A prompt is described by four switches:
     shots     how many worked examples (None = all 12, 1 = one)
 The 1x prompt is PROMPT_A. B and C differ in output format; 3x/10x read with A, B and C.
 """
+import hashlib
 import json
 import os
 import re
@@ -331,7 +332,7 @@ def call(item, cfg, prompt=None, sample=0):
     messages = [{"role": "user", "content": prompt or build_prompt(item, cfg, vocab, lines)}]
     if SHARED is None:
         return _request(item, messages)
-    key = (item["id"], messages[0]["content"], sample)
+    key = f'{item["id"]}|{hashlib.sha1(messages[0]["content"].encode()).hexdigest()}|{sample}'
     with _shared_lock:
         if key in SHARED:
             STATS["shared"] += 1

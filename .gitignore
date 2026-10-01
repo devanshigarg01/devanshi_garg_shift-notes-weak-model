@@ -6,3 +6,6 @@ answers*.json
 __pycache__/
 *.pyc
 .DS_Store
+
+# ablation checkpoint (deleted when an ablation finishes)
+.shared_replies.json
