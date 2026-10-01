@@ -5,6 +5,8 @@ without calls:  python3 ablate.py --report ablation/<name>.json
 
 A cell whose system has no results prints "--", so a partial run still gives a valid document.
 """
+import csv
+import html
 import os
 import re
 import shutil
@@ -260,8 +262,8 @@ At \textbf{10$\times$} code decides \emph{which} lines need another look and \em
 
 
 def build(res, outdir, name="ablation"):
-    """Writes <outdir>/<name>.md and .tex, and .pdf if pdflatex is installed (LaTeX's aux and
-    log files are removed)."""
+    """Writes <outdir>/<name>.md, .html (open in a browser), .csv (the main table) and .tex, and
+    .pdf if pdflatex is installed (LaTeX's aux and log files are removed)."""
     r = R(res)
     meta = r.meta
     side = side_tables(r)
@@ -299,8 +301,17 @@ def build(res, outdir, name="ablation"):
     md += ["", tex2md(footer.replace("\\texttt", ""))]
     open(os.path.join(outdir, name + ".md"), "w").write("\n".join(md) + "\n")
     print("\n".join(md))
+    write_html(os.path.join(outdir, name + ".html"), rows, full, calls, side, tex2md(footer.replace("\\texttt", "")))
+    with open(os.path.join(outdir, name + ".csv"), "w", newline="") as fh:
+        w = csv.writer(fh)
+        w.writerow(["component", "1x_with", "1x_without", "3x_with", "3x_without", "10x_with", "10x_without"])
+        w.writerow(["full system"] + [v for x in full for v in (tex2md(x), "")])
+        w.writerow(["calls per item (mean / cap)"] + [v for c in calls for v in (c, "")])
+        for row in rows:
+            if row[0] not in ("group", "sub"):
+                w.writerow([tex2md(row[0]).strip()] + [tex2md(c) for c in row[1:]])
 
-    msg = f"\nwrote {os.path.join(outdir, name)}.md and .tex"
+    msg = f"\nwrote {os.path.join(outdir, name)}.md, .html, .csv and .tex"
     if shutil.which("pdflatex"):
         for _ in range(2):
             p = subprocess.run(["pdflatex", "-interaction=nonstopmode", name + ".tex"], cwd=outdir,
@@ -311,3 +322,46 @@ def build(res, outdir, name="ablation"):
                 os.remove(os.path.join(outdir, name + ext))
         msg += " and .pdf" if ok else f" (pdflatex failed; see {name}.log)"
     print(msg)
+
+
+# ------------------------------------------------------------------ HTML (opens in any browser)
+
+CSS = """body{font:15px/1.5 -apple-system,Segoe UI,Helvetica,Arial,sans-serif;max-width:1000px;margin:32px auto;padding:0 16px;color:#1d1d1f}
+h1{font-size:26px}h2{font-size:19px;margin-top:36px}table{border-collapse:collapse;margin:10px 0 6px;font-size:14px}
+th,td{padding:5px 10px;border-bottom:1px solid #e3e3e3;text-align:center}th{background:#f4f5f7}
+td:first-child,th:first-child{text-align:left}tr.group td{background:#fafafa;font-weight:600;text-align:left}
+tr.sub td{font-style:italic;color:#666;text-align:left}tr.full td{background:#eef3fb;font-weight:600}
+.note{color:#555;font-size:13.5px}"""
+
+
+def _h(x):
+    t = html.escape(tex2md(x))
+    return re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", t)
+
+
+def write_html(path, rows, full, calls, side, footer):
+    out = ["<!doctype html><meta charset=utf-8><title>Ablation</title><style>" + CSS + "</style><h1>Ablation</h1>",
+           "<table><tr><th rowspan=2>Component</th><th colspan=2>1x</th><th colspan=2>3x</th><th colspan=2>10x</th></tr>",
+           "<tr>" + "<th>with</th><th>without</th>" * 3 + "</tr>",
+           "<tr class=full><td>Full system, macro exact match (%)</td>" + "".join(f"<td colspan=2>{_h(x)}</td>" for x in full) + "</tr>",
+           "<tr class=full><td>calls per item (mean / cap)</td>" + "".join(f"<td colspan=2>{html.escape(c)}</td>" for c in calls) + "</tr>"]
+    for row in rows:
+        if row[0] == "group":
+            out.append(f"<tr class=group><td colspan=7>{_h(row[1])}</td></tr>")
+        elif row[0] == "sub":
+            out.append(f"<tr class=sub><td colspan=7>{_h(row[1])}</td></tr>")
+        else:
+            out.append("<tr>" + "".join(f"<td>{_h(c)}</td>" for c in row) + "</tr>")
+    out.append("</table>")
+    for para in HOW_TO_READ.strip().split("\n\n"):
+        out.append(f"<p class=note>{_h(' '.join(para.split()))}</p>")
+    for t, h, rows_, spec, cap in side:
+        out += [f"<h2>{_h(t)}</h2><table><tr>" + "".join(f"<th>{_h(x)}</th>" for x in h) + "</tr>"]
+        for row in rows_:
+            if row and row[0] == "group":
+                out.append(f"<tr class=group><td colspan={len(h)}>{_h(row[1])}</td></tr>")
+            else:
+                out.append("<tr>" + "".join(f"<td>{_h(c)}</td>" for c in row) + "</tr>")
+        out.append(f"</table><p class=note>{_h(' '.join(cap.split()))}</p>")
+    out.append(f"<p class=note>{html.escape(footer)}</p>")
+    open(path, "w").write("\n".join(out) + "\n")

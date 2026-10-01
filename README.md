@@ -8,8 +8,8 @@ answers unique / ambiguous / inconsistent. Details: `docs/devanshi_garg_write_up
 | What | Where |
 |---|---|
 | Write-up (2 pages) | `docs/devanshi_garg_write_up.docx` |
-| Reported ablation results (my runs) | `ablation/ablation_<suite>_suite_<N>_run(s)_orig.md` (each with `.tex`, `.pdf`, `.json`). A re-run writes the same names without `_orig`, so it never overwrites these. |
-| Any ablation run | `ablation/ablation_<quick\|main\|full>_suite_<N>_runs.md` / `.tex` / `.pdf`, plus `.json` (the scores behind the tables) |
+| Reported ablation results (my runs) | `ablation/ablation_<suite>_suite_<N>_run(s)_orig.md` (each with `.html`, `.csv`, `.tex`, `.pdf`, `.json`). A re-run writes the same names without `_orig`, so it never overwrites these. |
+| Any ablation run | `ablation/ablation_<quick\|main\|full>_suite_<N>_runs.html` (open in a browser), `.csv`, `.md`, `.tex` / `.pdf`, plus `.json` (the scores behind the tables) |
 
 ## Setup
 
@@ -70,8 +70,8 @@ Every system uses the solver except `1x-direct`, where Granite answers the whole
 
 My results (`_orig` files) come from: quick × 3 runs, main × 1, full × 1.
 
-Output: `ablation/ablation_<suite>_suite_<N>_runs.md` and `.tex` (and `.pdf` if `pdflatex` is
-installed), named by suite and number of runs; a re-run with the same settings overwrites them.
+Output: `ablation/ablation_<suite>_suite_<N>_runs.html` (open in a browser), `.csv` (the main
+table), `.md` and `.tex` (and `.pdf` if `pdflatex` is installed), named by suite and number of runs; a re-run with the same settings overwrites them.
 Within a run, systems share identical reads, so those that differ only after the reads are
 compared on the same model output.
 
