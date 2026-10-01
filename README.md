@@ -8,7 +8,7 @@ answers unique / ambiguous / inconsistent. Details: `docs/devanshi_garg_write_up
 | What | Where |
 |---|---|
 | Write-up (2 pages) | `docs/devanshi_garg_write_up.docx` |
-| Reported ablation results | `ablation/ablation_full_suite_3_runs.md` (and `.tex`, `.pdf`) |
+| Reported ablation results (my runs) | `ablation/ablation_full_suite_3_runs_orig.md` and `ablation_main_suite_3_runs_orig.md` (each with `.tex`, `.pdf`, `.json`). A re-run writes the same names without `_orig`, so it never overwrites these. |
 | Any ablation run | `ablation/ablation_<main\|full>_suite_<N>_runs.md` / `.tex` / `.pdf`, plus `.json` (the scores behind the tables) |
 
 ## Setup
