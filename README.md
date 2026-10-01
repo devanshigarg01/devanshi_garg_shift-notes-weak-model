@@ -40,7 +40,7 @@ The task files (`items.json`, `visible_key.json`, `score.py`) are included. Pick
 
 | Command | What you get | Approx. time |
 |---|---|---|
-| `python3 ablate.py --runs 3` | **quick**: the full system at each budget, plus the wrong-name repair, the 3-read vote and the 10x re-asks with/without (~300 calls/run) | ~25 min |
+| `python3 ablate.py --runs 3` | **quick**: the full system at each budget, plus the solver (vs Granite answering directly), the wrong-name repair, the 3-read vote and the 10x re-asks with/without (~360 calls/run) | ~30 min |
 | `python3 ablate.py --suite main --runs 1` | **main**: the whole main table, prompt components at 1x only (~1,000 calls) | ~35 min |
 | `python3 ablate.py --suite full --runs 1` | **full**: every component at every budget + supporting tables (~1,500 calls) | ~50 min |
 
@@ -51,8 +51,8 @@ What each suite runs:
 
 | Suite | Systems | Rows of the main table it fills |
 |---|---|---|
-| quick | `1x`, `3x`, `3x-norepair`, `10x` | full system at every budget; wrong-name repair at 1x/3x; 3-read vote vs one read; all 10x re-asks vs the vote alone. Other rows show `--`. |
-| main | 16: quick + `1x-direct`, `1x-zeroshot`, `1x-norestate`, `3x-sameprompt`, `10x-norepair`, `10x-sameprompt`, `10x-oneread`, and each 10x re-ask removed on its own | every row; worked examples and restating at 1x only |
+| quick | `1x`, `1x-direct`, `3x`, `3x-norepair`, `10x` | full system at every budget; solver vs Granite answering directly (1x); wrong-name repair at 1x/3x; 3-read vote vs one read; all 10x re-asks vs the vote alone. Other rows show `--`. |
+| main | 16: quick + `1x-zeroshot`, `1x-norestate`, `3x-sameprompt`, `10x-norepair`, `10x-sameprompt`, `10x-oneread`, and each 10x re-ask removed on its own | every row; worked examples and restating at 1x only |
 | full | all 23: main + `1x-oneshot`, `1x-plainfields`, `3x-zeroshot`, `3x-norestate`, `3x-followup`, `10x-zeroshot`, `10x-norestate` | every row at every budget, plus supporting tables (prompt techniques, ways to spend 3 calls, where 10x calls go) |
 
 My results (`_orig` files) come from: quick × 3 runs, main × 1, full × 1.

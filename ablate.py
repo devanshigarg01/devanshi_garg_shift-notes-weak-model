@@ -105,7 +105,7 @@ SYSTEMS = _systems()
 # prompt components (examples, restating) measured at 1x only. "full": every system, every table.
 FULL_ONLY = {"1x-oneshot", "1x-plainfields", "3x-zeroshot", "3x-norestate", "3x-followup",
              "10x-zeroshot", "10x-norestate"}
-QUICK = ["1x", "3x", "3x-norepair", "10x"]   # full system per budget + what comes free from those runs
+QUICK = ["1x", "1x-direct", "3x", "3x-norepair", "10x"]   # full system per budget + what comes free from those runs
 SUITES = {"quick": QUICK, "main": [n for n in SYSTEMS if n not in FULL_ONLY], "full": list(SYSTEMS)}
 
 # ------------------------------------------------------------------ scoring
@@ -246,7 +246,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--runs", type=int, default=3)
     ap.add_argument("--suite", choices=list(SUITES), default="quick",
-                    help="quick: each budget's system + repair/vote/re-ask rows (~270 calls/run); "
+                    help="quick: each budget's system + solver/repair/vote/re-ask rows (~360 calls/run); "
                          "main: the whole main table (~1,000); full: every system and table (~1,500)")
     ap.add_argument("--only", nargs="*", help="run only these systems (see SYSTEMS); overrides --suite")
     ap.add_argument("--limit", type=int, help="first N items only (plumbing checks)")
