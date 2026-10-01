@@ -28,16 +28,17 @@ No caching. Rate-limited calls (429) are retried up to 5 times; nothing else is 
 
 ## Ablation
 
-Put `items.json`, `visible_key.json` and `score.py` from the task package in this folder, then:
+Put `items.json`, `visible_key.json` and `score.py` from the task package in this folder, then
+pick one:
 
-```bash
-python3 ablate.py --runs 3
-```
+| Command | What you get | Calls per run | Time for 3 runs (`--workers 16`) |
+|---|---|---|---|
+| `python3 ablate.py --runs 3 --workers 16` | main table: every component with/without at each budget (prompt components at 1x only) | ~1,000 | ~40 min |
+| `python3 ablate.py --suite full --runs 3 --workers 16` | everything: main table at every budget + supporting tables (prompt techniques, repairs, ways to spend 3 calls, where 10x calls go, declared vs true kind) | ~1,600 | ~75 min |
 
-Runs 23 systems (each budget's system, and each with one component removed or swapped) and
-writes the tables to `ablation/<time>/ablation.md` (and `.tex`/`.pdf`). Within a run, systems
-share identical reads, so those that differ only after the reads are compared on the same model
-output; ~1,500 calls per run (~25 min with `--workers 16`). Reported results: `docs/ablation.md`.
+Output: `ablation/<time>/ablation.md` (and `.tex`/`.pdf`). Within a run, systems share identical
+reads, so those that differ only after the reads are compared on the same model output. Reported
+results (`--suite full`): `docs/ablation.md`.
 
 - Quick check: `python3 ablate.py --runs 1 --limit 10`
 - Rebuild tables without calls: `python3 ablate.py --report ablation/<time>`
