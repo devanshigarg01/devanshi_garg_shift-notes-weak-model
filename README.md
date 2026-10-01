@@ -38,14 +38,20 @@ No caching. Rate-limited calls (429) are retried up to 5 times and parallelism b
 
 The task files (`items.json`, `visible_key.json`, `score.py`) are included. Pick one:
 
-| Command | What you get | Approx. time |
-|---|---|---|
-| `python3 ablate.py --runs 3` | **quick**: the full system at each budget, plus the solver (vs Granite answering directly), the wrong-name repair, the 3-read vote and the 10x re-asks with/without (~360 calls/run) | ~30 min |
-| `python3 ablate.py --suite main --runs 1` | **main**: the whole main table, prompt components at 1x only (~1,000 calls) | ~35 min |
-| `python3 ablate.py --suite full --runs 1` | **full**: every component at every budget + supporting tables (~1,500 calls) | ~50 min |
+| Command | What you get | Calls | Time (best – worst) |
+|---|---|---|---|
+| `python3 ablate.py --runs 1 --workers 16` | **quick, 1 run**: fastest check of the headline numbers | ~360 | 5 – 12 min |
+| `python3 ablate.py --runs 3 --workers 16` | **quick, 3 runs**: the same rows with run-to-run spread | ~1,100 | 15 – 35 min |
+| `python3 ablate.py --suite main --runs 1 --workers 16` | **main**: the whole main table (prompt components at 1x only) | ~1,000 | 15 – 35 min |
+| `python3 ablate.py --suite full --runs 1 --workers 16` | **full**: every component at every budget + supporting tables | ~1,500 | 20 – 50 min |
 
-Times assume the endpoint's rate limit (~0.5 calls/s). `--workers` (default 8) is a ceiling on
-parallel calls: each rate limit halves it, a streak of successes adds one back.
+Best case: no rate limits, ~1.2 calls/s at 16 parallel calls. Worst case: the endpoint rate-limits
+to ~0.5 calls/s. `--workers` is a ceiling: each rate limit halves the parallel calls, a streak of
+successes adds one back, so asking for 16 is safe.
+
+**To reproduce:** run quick (1 run is enough) and compare `ablation/ablation_quick_suite_1_run.md`
+with my `ablation/ablation_quick_suite_3_runs_orig.md`: each number should fall within about the
+`±` spread shown there (one item moves a macro score by 1.7 points).
 
 What each suite runs:
 
