@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# ./run <items.json> --budget <1x|3x|10x> --out <answers.json>
+set -euo pipefail
+HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+exec python3 "$HERE/run.py" "$@"
