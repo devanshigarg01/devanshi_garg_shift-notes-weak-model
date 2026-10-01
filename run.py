@@ -38,7 +38,7 @@ def main():
     ap.add_argument("items")
     ap.add_argument("--budget", required=True, choices=list(CAPS))
     ap.add_argument("--out", required=True)
-    ap.add_argument("--workers", type=int, default=8, help="max model calls in flight (halves on rate limits, then recovers)")
+    ap.add_argument("--workers", type=int, default=16, help="max model calls in flight (halves on rate limits, then recovers)")
     a = ap.parse_args()
 
     problem = extract.check_setup()

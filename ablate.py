@@ -254,7 +254,7 @@ def main():
     ap.add_argument("--limit", type=int, help="first N items only (plumbing checks)")
     ap.add_argument("--fresh", action="store_true", help="start over instead of resuming an interrupted run")
     ap.add_argument("--report", help="a results .json written by an earlier run: rebuild its tables, no calls")
-    ap.add_argument("--workers", type=int, default=8, help="max model calls in flight (halves on rate limits, then recovers)")
+    ap.add_argument("--workers", type=int, default=16, help="max model calls in flight (halves on rate limits, then recovers)")
     ap.add_argument("--items", default=os.path.join(HERE, "items.json"))
     ap.add_argument("--key", default=os.path.join(HERE, "visible_key.json"))
     ap.add_argument("--scorer", default=os.path.join(HERE, "score.py"))

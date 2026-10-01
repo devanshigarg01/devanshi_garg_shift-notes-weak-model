@@ -38,16 +38,17 @@ No caching. Rate-limited calls (429) are retried up to 5 times and parallelism b
 
 The task files (`items.json`, `visible_key.json`, `score.py`) are included. Pick one:
 
-| Command | What you get | Calls | Time (best – worst) |
+| Command | What you get | Calls | Time (typical – worst) |
 |---|---|---|---|
-| `python3 ablate.py --runs 1 --workers 16` | **quick, 1 run**: fastest check of the headline numbers | ~360 | 5 – 12 min |
-| `python3 ablate.py --runs 3 --workers 16` | **quick, 3 runs**: the same rows with run-to-run spread | ~1,100 | 15 – 35 min |
-| `python3 ablate.py --suite main --runs 1 --workers 16` | **main**: the whole main table (prompt components at 1x only) | ~1,000 | 15 – 35 min |
-| `python3 ablate.py --suite full --runs 1 --workers 16` | **full**: every component at every budget + supporting tables | ~1,500 | 20 – 50 min |
+| `python3 ablate.py --runs 1` | **quick, 1 run**: fastest check of the headline numbers | ~350 | 4 – 12 min |
+| `python3 ablate.py --runs 3` | **quick, 3 runs**: the same rows with run-to-run spread | ~1,000 | 12 – 33 min |
+| `python3 ablate.py --suite main --runs 1` | **main**: the whole main table (prompt components at 1x only) | ~1,000 | 12 – 33 min |
+| `python3 ablate.py --suite full --runs 1` | **full**: every component at every budget + supporting tables | ~1,500 | 18 – 50 min |
 
-Best case: no rate limits, ~1.2 calls/s at 16 parallel calls. Worst case: the endpoint rate-limits
-to ~0.5 calls/s. `--workers` is a ceiling: each rate limit halves the parallel calls, a streak of
-successes adds one back, so asking for 16 is safe.
+Typical: measured, ~1.4 calls/s with up to 16 calls in flight (main took 12 min). Worst: ~0.5 calls/s
+if the endpoint rate-limits hard (quick × 3 took 33 min at 8 calls in flight). `--workers`
+(default 16) caps calls in flight; each rate limit halves it and a streak of successes adds one
+back, so the default is safe.
 
 **If it is interrupted** (a laptop going to sleep, a dropped connection), run the same command
 again: it resumes after the last finished system, so at most one system is redone (`--fresh`
