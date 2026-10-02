@@ -199,8 +199,8 @@ def side_tables(r):
               [kind_row(l, s, line_cells(s)) for l, s in prompts], "p{5.4cm} ccc c c ccc",
               r"Each row is one 1$\times$ system that differs from the submitted one ($\star$) only in its prompt, all scored with the wrong-name repair. "
               r"\emph{Lines right}: \% of note lines whose facts match the hand-checked facts exactly; \emph{Missed}: real constraints read as ``no fact''; "
-              r"\emph{Wrong}: a wrong fact, or a fact invented from filler (counts per run, over all items). Worked examples are the main thing to watch "
-              r"for overfitting: they are written in fresh wording, not copied from the visible notes."))
+              r"\emph{Wrong}: a wrong fact, or a fact invented from filler (counts per run, over all items). Worked examples use made-up names but were "
+              r"written from errors seen on the visible notes, so they are the main thing to watch for overfitting."))
     reps = [("None", r.get("1x", fix="no fixes")), (r"$\star$ Wrong-name repair", r.get("1x", fix="F2")),
             ("Station/time swap repair", r.get("1x", fix="F1")), ("Both", r.get("1x", fix="all"))]
     T.append(("Code repairs at 1$\\times$ (same model output)", KH + LH,

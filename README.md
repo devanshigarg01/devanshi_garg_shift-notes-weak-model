@@ -1,13 +1,14 @@
 # Shift notes with a weak model
 
 Granite reads each line into a structured fact; a solver checks all 720 possible rotas and
-answers unique / ambiguous / inconsistent. Details: `docs/devanshi_garg_write_up.docx`.
+answers unique / ambiguous / inconsistent. Details: `docs/devanshi_garg_write_up.md` (or `.docx`).
 
 ## Where things are
 
 | What | Where |
 |---|---|
-| Write-up (2 pages) | `docs/devanshi_garg_write_up.docx` |
+| Write-up (2 pages + appendix with the detailed ablation) | `docs/devanshi_garg_write_up.docx`; the same text as Markdown, readable on GitHub: `docs/devanshi_garg_write_up.md` |
+| Ablation tables (PDF, full suite) | `docs/devanshi_garg_ablation_tables.pdf` |
 | Reported ablation results (my runs) | `ablation/ablation_<suite>_suite_<N>_run(s)_orig/` (`.html`, `.md`, `.tex`, `.pdf`, `.json` inside). A re-run writes the same name without `_orig`, so it never overwrites these. |
 | Any ablation run | `ablation/ablation_<quick\|main\|full>_suite_<N>_runs/`: `.html`, `.md`, `.tex` / `.pdf`, and `.json` (the scores behind the tables) |
 
