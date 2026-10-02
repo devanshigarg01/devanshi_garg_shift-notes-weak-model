@@ -37,7 +37,8 @@ No caching. Rate-limited calls (429) are retried up to 5 times and parallelism b
 
 ## Ablation
 
-The task files (`items.json`, `visible_key.json`, `score.py`) are included. Pick one:
+The task files (`items.json`, `visible_key.json`, `score.py`) are included. 
+You can reproduce whichever ablation fits your time budget.
 
 | Command | What you get | Calls | Time (typical – worst) |
 |---|---|---|---|
